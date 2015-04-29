@@ -178,11 +178,11 @@ Ekran* EkranPowitalny::przejdzDoWybranegoEkranu(int i)
 EkranPoprawnejAutoryzacji::EkranPoprawnejAutoryzacji()
 {
 	dodajLinieTekstu("Wybierz opcję:");
-	dodajOpcje("Pośrednia komunikacja z innym użytkownikiem");
 	dodajOpcje("Bezpośrednia komunikacja z innym użytkownikiem");
 	dodajOpcje("Dodaj znajomego");
 	dodajOpcje("Wyświetl listę użytkowników");
 	dodajOpcje("Przejdź do ekranu logowania");
+	dodajOpcje("Pośrednia komunikacja z innym użytkownikiem");
 	dodajOpcje("Wyloguj i zakończ");
 }
 Ekran* EkranPoprawnejAutoryzacji::przejdzDoWybranegoEkranu(int i)
@@ -230,6 +230,25 @@ EkranRejestracji::EkranRejestracji()
 	dodajLinieTekstu("Podaj kolejne dane w celu rejestracji:");
 	dodajLinieTekstu("Wprowadź login:");
 	setKomunikatHasloSciezka("Wprowadź hasło:");
+}
+
+int EkranRejestracji::oczekujNaOdpowiedz()
+{
+	EkranAutoryzacji::oczekujNaOdpowiedz();
+	wyswietlLinieTekstu("Wprowadź ścieżkę pliku z kluczem publicznym:");
+	cin>>sciezka;
+	
+	return 0;
+}
+
+string EkranRejestracji::getSciezka()
+{
+	return sciezka;
+}
+
+void EkranRejestracji::setSciezka(string sciezka)
+{
+	this->sciezka = sciezka;
 }
 
 Ekran* EkranRejestracji::przejdzDoWybranegoEkranu(int i)
