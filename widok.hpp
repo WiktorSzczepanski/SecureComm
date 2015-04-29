@@ -85,7 +85,7 @@ class EkranAutoryzacji : public Ekran
 	
 	public:
 	// Oczekuje na odpowiedź użytkownika i ją zwraca.
-	int oczekujNaOdpowiedz();
+	virtual int oczekujNaOdpowiedz();
 	// Przechodzi do wskazanego przez użytkownika ekranu:
 	Ekran* przejdzDoWybranegoEkranu(int i);
 	void setLogin(string login);
@@ -136,9 +136,15 @@ class EkranLogowania : public EkranWyboru
  */ 
 class EkranRejestracji : public EkranAutoryzacji
 {
+	private:
+	string sciezka;
+	
 	public:
 	EkranRejestracji();
+	int oczekujNaOdpowiedz();
 	Ekran* przejdzDoWybranegoEkranu(int i);
+	string getSciezka();
+	void setSciezka(string sciezka);
 };
 
 /* Klasa reprezentująca ekran powitalny wyświetlany użytkownikowi,
