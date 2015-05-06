@@ -1,0 +1,13 @@
+*.exe
+Serwer/Debug/Serwer.ilk
+*.pdb
+*.opensdf
+*.sdf
+*.sln
+*.suo
+*.obj
+*.log
+*.tlog
+*.idb
+*.vcxproj
+*.filters
