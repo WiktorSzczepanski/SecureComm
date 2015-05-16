@@ -7,6 +7,9 @@ class User
 private:
 	//Unikalna nazwa uzytkownika
 	std::string nazwa;
+	
+	//Unikalny identyfikator uzytkownika
+	unsigned int id;
 
 	//Lista znajomych
 	std::vector<User*> znajomi;
