@@ -1,5 +1,13 @@
 #include "RegistrationRequest.h"
 
+//serializacja
+std::string RegistrationRequest::toString()
+{
+	std::string ramka;
+	ramka = std::to_string(this->getId()) + '#' + this->getNazwaUzytkownika() + '#' + this->getHaslo();
+	return ramka;
+}
+
 //gettery
 std::string RegistrationRequest::getNazwaUzytkownika()
 {
@@ -23,11 +31,11 @@ void RegistrationRequest::setHaslo(const std::string &noweHaslo)
 }
 
 //konstruktory
-RegistrationRequest::RegistrationRequest(const User &user)
+RegistrationRequest::RegistrationRequest(User &user)
 {
 	this->setId(REGISTRATION_REQUEST);
-	this->setNazwaUzytkownika(user.getNazwa);
-	this->setHaslo(user.getHaslo);
+	this->setNazwaUzytkownika(user.getNazwa());
+	this->setHaslo(user.getHaslo());
 }
 
 

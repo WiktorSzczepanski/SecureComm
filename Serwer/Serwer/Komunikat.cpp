@@ -6,7 +6,7 @@ Komunikat::Komunikat()
 }
 
 
-Komunikat::~Komunikat()
+Komunikat:: ~Komunikat()
 {
 }
 

@@ -1,5 +1,13 @@
 #include "LoginRequest.h"
 
+//serializacja
+std::string LoginRequest::toString()
+{
+	std::string ramka;
+	ramka = std::to_string(this->getId()) + '#' + this->getNazwaUzytkownika() + '#' + this->getHaslo();
+	return ramka;
+}
+
 //gettery
 std::string LoginRequest::getNazwaUzytkownika()
 {

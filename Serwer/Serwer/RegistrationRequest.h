@@ -3,6 +3,8 @@
 class RegistrationRequest :
 	public Komunikat
 {
+	//idKomunikatu # nazwaUzytkownika # haslo
+	//idKomunikatu - dziedziczone z "Komunikat"
 private:
 	//wybrana nazwa uzytkownika
 	std::string nazwaUzytkownika;
@@ -10,9 +12,9 @@ private:
 	//haslo do logowania do klienta
 	std::string haslo; //@TODO moze nie string i plain text?
 public:
-	//idKomunikatu # nazwaUzytkownika # haslo
-	//idKomunikatu - dziedziczone z "Komunikat"
-	
+	//serializacja
+	std::string toString() override;
+
 	//gettery
 	std::string getNazwaUzytkownika();
 	std::string getHaslo();
@@ -22,7 +24,7 @@ public:
 	void setHaslo(const std::string &noweHaslo);
 
 	//konstruktory
-	RegistrationRequest(const User &user);
+	RegistrationRequest(User &user);
 	~RegistrationRequest();
 };
 

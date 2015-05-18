@@ -3,10 +3,15 @@
 class LoginRequest :
 	public Komunikat
 {
+	//idKomunikatu # nazwaUzytkownika # haslo
+	//idKomunikatu - dziedziczone z "Komunikat"
 private:
 	std::string nazwaUzytkownika;
 	std::string haslo;
 public:
+	//serializacja
+	std::string toString() override;
+
 	//gettery
 	std::string getNazwaUzytkownika();
 	std::string getHaslo();
