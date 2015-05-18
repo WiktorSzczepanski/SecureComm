@@ -7,6 +7,9 @@ class User
 private:
 	//Unikalna nazwa uzytkownika
 	std::string nazwa;
+
+	//haslo uzytkownika
+	std::string haslo;
 	
 	//Unikalny identyfikator uzytkownika
 	unsigned int id;
@@ -17,7 +20,16 @@ private:
 	std::tm dataRejestracji;
 	std::tm dataOstatniegoLogowania;
 public:
-	User(std::string nazwa, std::tm dataRejestracji);
+	//gettery
+	std::string getNazwa();
+	std::string getHaslo();
+
+	//settery
+	void setNazwa(std::string nowaNazwa);
+	void setHaslo(std::string noweHaslo);
+
+	//konstruktory
+	User(std::string nazwa, std::string haslo, std::tm dataRejestracji);
 	~User();
 };
 
