@@ -12,12 +12,12 @@ std::string RegistrationRequest::getHaslo()
 }
 
 //settery
-void RegistrationRequest::setNazwaUzytkownika(std::string nowaNazwa)
+void RegistrationRequest::setNazwaUzytkownika(const std::string &nowaNazwa)
 {
 	this->nazwaUzytkownika = nowaNazwa;
 }
 
-void RegistrationRequest::setHaslo(std::string noweHaslo)
+void RegistrationRequest::setHaslo(const std::string &noweHaslo)
 {
 	this->haslo = noweHaslo;
 }

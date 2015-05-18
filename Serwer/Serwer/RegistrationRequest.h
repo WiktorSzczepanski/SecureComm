@@ -18,8 +18,8 @@ public:
 	std::string getHaslo();
 
 	//settery
-	void setNazwaUzytkownika(std::string nowaNazwa);
-	void setHaslo(std::string noweHaslo);
+	void setNazwaUzytkownika(const std::string &nowaNazwa);
+	void setHaslo(const std::string &noweHaslo);
 
 	//konstruktory
 	RegistrationRequest(const User &user);

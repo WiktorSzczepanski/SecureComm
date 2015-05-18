@@ -11,18 +11,21 @@ std::string LoginRequest::getHaslo()
 }
 
 //settery
-void LoginRequest::setNazwaUzytkownika(std::string nowaNazwa)
+void LoginRequest::setNazwaUzytkownika(const std::string &nowaNazwa)
 {
 	this->nazwaUzytkownika = nowaNazwa;
 }
-void LoginRequest::setHaslo(std::string noweHaslo)
+void LoginRequest::setHaslo(const std::string &noweHaslo)
 {
 	this->haslo = noweHaslo;
 }
 
 //konstruktory
-LoginRequest::LoginRequest(std::string login, std::string haslo)
+LoginRequest::LoginRequest(std::string nazwa, std::string haslo)
 {
+	this->setId(LOGIN_REQUEST);
+	this->setNazwaUzytkownika(nazwa);
+	this->setHaslo(haslo);
 }
 
 
