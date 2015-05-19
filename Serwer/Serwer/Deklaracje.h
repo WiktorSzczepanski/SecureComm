@@ -8,7 +8,8 @@ enum rodzajKomunikatu
 	FRIEND_SEEK = 4,
 	FRIEND_ADD = 5,
 	ZAPYTANIE_DOSTEPNOSC = 6,
-	FRIEND_LIST_REQUEST = 7
+	FRIEND_LIST_REQUEST = 7,
+	LOGOUT = 8
 };
 
 typedef unsigned int UserId;
