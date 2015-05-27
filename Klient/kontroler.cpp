@@ -12,23 +12,25 @@ Kontroler::Kontroler()
 
 void Kontroler::petlaAplikacji()
 {
-	Ekran *ekran_pop = new EkranPowitalny();
-	Ekran *ekran;
+        //TODO najlepiej to zrobic na sprytnym wskazniku, by obiekt nie wisial bez potrzeby
+	Ekran ekranPowitalny = EkranPowitalny();
+	Ekran *ekranAktualny = &ekranPowitalny;
+        //TODO ekranNastepny tez nie musi byc dynamicznie alokowany, zwrocenie przez wartosc wystarczy
+	Ekran *ekranNastepny;
 	int odp;
 	
-	while(true)
+	while (true)
 	{
-		ekran_pop->wyswietlTekst(ekran_pop->zwrocListeKomunikatow());
-		odp = ekran_pop->oczekujNaOdpowiedz();
-		if(odp==5)
+		ekranAktualny->wyswietlTekst(ekranAktualny->zwrocListeKomunikatow());
+		odp = ekranAktualny->oczekujNaOdpowiedz();
+		if (odp==5)
 		{
 			cout<< "Mam szostke"<<endl;
 			model->polaczZSerwerem(10223,"localhost");
 		//	model->zakonczPolaczenieZSerwerem();
 		}
-		ekran = ekran_pop->przejdzDoWybranegoEkranu(odp);
-		ekran->czyscEkran();
-		ekran_pop = ekran;
+		ekranNastepny = ekranAktualny->przejdzDoWybranegoEkranu(odp);
+		ekranNastepny->czyscEkran();
+		ekranAktualny = ekran;
 	}
-	
 }

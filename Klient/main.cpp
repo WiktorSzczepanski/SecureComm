@@ -6,9 +6,9 @@ using namespace std;
 int main()
 {
 	//Model *model = new Model();
-	Kontroler *kontroler = new Kontroler();
+	Kontroler kontroler = Kontroler();
 	
-	kontroler->petlaAplikacji();
-
+	kontroler.petlaAplikacji();
+	
 	return 0;
 }
