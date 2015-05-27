@@ -20,10 +20,15 @@ using namespace std;
 class Model
 {
 	private:
+	// Nazwa serwera.
+	const string nazwaSerwera = "localhost";
+	// Numer portu serwera.
+	const int numerPortuSerwera = 22222;
 	// Deskryptor gniazda połączenia z serwerem.
 	int socketSerwer;
 	// Deskryptory gniazd połączeń bezpośrednich.
 	list<int> socketUzytkownicy;
+	
 	
 	public:
 	// Metoda służąca do wysyłania bezpośredniej wiadomości do 
@@ -31,11 +36,11 @@ class Model
 	int wyslijWiadomoscBezposrednio(string login, string tresc);
 	// Metoda służąca do wysyłania pośredniej wiadomości do innego
 	// użytkownika.
-	int wyslijWiadomoscPosrednio(string login,string tresc);
+	int wyslijWiadomoscPosrednio(string login, string tresc);
 	// Metoda służąca do odbierania wiadomości od serwera.
 	int odbierzWiadomoscOdSerwera();
 	// Nawiązanie połączenia z serwerem.
-	int polaczZSerwerem(int numer_portu, string nazwaHosta);
+	int polaczZSerwerem();
 	// Zakończenie połączenia z serwerem.
 	int zakonczPolaczenieZSerwerem();
 	// Funkcja zwracająca informację o błędzie.
