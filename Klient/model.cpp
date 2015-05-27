@@ -2,15 +2,13 @@
 
 using namespace std;
 
-int Model::polaczZSerwerem(int numerPortu, string nazwaHosta)
+int Model::polaczZSerwerem()
 {
-	const int MAX_BUFOR = 512;
-	int n;
     struct sockaddr_in serv_addr;
     struct hostent *server;
-    const char *host = nazwaHosta.c_str();
+    const char *host = nazwaSerwera.c_str();
     string wiad;
-    char buffer[MAX_BUFOR];
+    
     
     socketSerwer = socket(AF_INET, SOCK_STREAM, 0);
     // Sprawdzenie wartości deskryptora:
@@ -30,12 +28,22 @@ int Model::polaczZSerwerem(int numerPortu, string nazwaHosta)
     bcopy((char *)server->h_addr, 
          (char *)&serv_addr.sin_addr.s_addr,
          server->h_length);
-    serv_addr.sin_port = htons(numerPortu);
+    serv_addr.sin_port = htons(numerPortuSerwera);
     if (connect(socketSerwer,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0) 
         fprintf(stderr,"ERROR connecting");
-    printf("Please enter the message: ");
-    bzero(buffer,MAX_BUFOR);
-    fgets(buffer,MAX_BUFOR - 1,stdin);
+    printf("Połączono z serwerem");
+ 
+    
+    return 0;
+}
+
+int Model::wyslijWiadomoscPosrednio(string login, string tresc)
+{
+	const int MAX_BUFOR = 512;
+	int n;
+	char buffer[MAX_BUFOR];
+	bzero(buffer,MAX_BUFOR);
+    strcpy(buffer, tresc.c_str());
     n = write(socketSerwer,buffer,strlen(buffer));
     if (n < 0) 
          fprintf(stderr,"ERROR writing to socket");
@@ -45,9 +53,8 @@ int Model::polaczZSerwerem(int numerPortu, string nazwaHosta)
          fprintf(stderr,"ERROR reading from socket");
     printf("%s\n",buffer);
     
-    zakonczPolaczenieZSerwerem();
-    
     return 0;
+	
 }
 
 int Model::zakonczPolaczenieZSerwerem()
