@@ -1,5 +1,4 @@
 #include "kontroler.hpp"
-#include "kontroler.cpp"
 
 using namespace std;
 

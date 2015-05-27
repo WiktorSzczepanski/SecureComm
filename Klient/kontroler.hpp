@@ -8,7 +8,6 @@
 #include <sstream>
 #include <list>
 #include "model.hpp"
-#include "model.cpp"
 
 using namespace std;
 

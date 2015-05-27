@@ -1,6 +1,5 @@
 #include "kontroler.hpp"
 #include "widok.hpp"
-#include "widok.cpp"
 
 using namespace std;
 
