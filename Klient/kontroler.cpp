@@ -2,7 +2,6 @@
 #include "widok.hpp"
 #include "widok.cpp"
 
-
 using namespace std;
 
 Kontroler::Kontroler()
@@ -12,25 +11,29 @@ Kontroler::Kontroler()
 
 void Kontroler::petlaAplikacji()
 {
-        //TODO najlepiej to zrobic na sprytnym wskazniku, by obiekt nie wisial bez potrzeby
-	Ekran ekranPowitalny = EkranPowitalny();
-	Ekran *ekranAktualny = &ekranPowitalny;
-        //TODO ekranNastepny tez nie musi byc dynamicznie alokowany, zwrocenie przez wartosc wystarczy
-	Ekran *ekranNastepny;
+	Ekran *ekran_pop = new EkranPowitalny();
+	Ekran *ekran;
 	int odp;
 	
-	while (true)
+	while(true)
 	{
-		ekranAktualny->wyswietlTekst(ekranAktualny->zwrocListeKomunikatow());
-		odp = ekranAktualny->oczekujNaOdpowiedz();
-		if (odp==5)
+		ekran_pop->wyswietlTekst(ekran_pop->zwrocListeKomunikatow());
+		odp = ekran_pop->oczekujNaOdpowiedz();
+		if(odp==5)
 		{
-			cout<< "Mam szostke"<<endl;
-			model->polaczZSerwerem(10223,"localhost");
-		//	model->zakonczPolaczenieZSerwerem();
+			ekran = ekran_pop->przejdzDoWybranegoEkranu(odp);
+			ekran -> oczekujNaOdpowiedz();
+			cout<< "Mam piatke"<<endl;
+			model->polaczZSerwerem();
+			model->wyslijWiadomoscPosrednio("login",((EkranKomunikacji*) ekran)->getKomunikat());
+			cout<<(((EkranKomunikacji*) ekran)->getKomunikat());
+			model->zakonczPolaczenieZSerwerem();
+			ekran_pop = new EkranLogowania();
+			ekran_pop->wyswietlTekst(ekran_pop->zwrocListeKomunikatow());
+			odp = ekran_pop->oczekujNaOdpowiedz();
 		}
-		ekranNastepny = ekranAktualny->przejdzDoWybranegoEkranu(odp);
-		ekranNastepny->czyscEkran();
-		ekranAktualny = ekran;
+		ekran = ekran_pop->przejdzDoWybranegoEkranu(odp);
+		ekran->czyscEkran();
+		ekran_pop = ekran;
 	}
 }
