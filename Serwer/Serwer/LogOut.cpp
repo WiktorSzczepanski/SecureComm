@@ -11,6 +11,7 @@ std::string LogOut::toString()
 //konstruktory
 LogOut::LogOut()
 {
+	this->setId(LOGOUT);
 }
 
 

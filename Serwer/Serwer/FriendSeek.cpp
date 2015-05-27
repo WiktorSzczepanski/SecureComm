@@ -22,6 +22,7 @@ void FriendSeek::setNazwaSzukanego(const std::string &nowySzukany)
 //konstruktory
 FriendSeek::FriendSeek()
 {
+	this->setId(FRIEND_SEEK);
 }
 
 
