@@ -24,8 +24,8 @@ void CommunicationNode::messageProcessingLoop()
     {
         std::string komunikatBare = bQueue.pop();
         //printf("%s\n", komunikatBare.c_str()); //usunac
-        //Komunikat komunikat = createKomunikat(komunikatBare);
-        //react(komunikat);
+        std::unique_ptr<Komunikat> komunikat = createKomunikat(komunikatBare);
+        react(*komunikat.get());
 
         sleep(1);
         //printf("1\n");

@@ -6,6 +6,8 @@ void Sender::setConnection(const std::string &hostName)
     struct hostent *hostDescription;
     std::string message;
 
+    int noAttempts = 3;
+    tryAgain:
     // blok socket : tworzenie gniazda
     bsdSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (bsdSocket < 0)
@@ -30,6 +32,10 @@ void Sender::setConnection(const std::string &hostName)
     // blok connect : zestawienie polaczenia
     if (connect(bsdSocket,(struct sockaddr *) &address,sizeof(address)) < 0)
     {
+        if (--noAttempts > 0)
+        {
+            goto tryAgain;
+        }
         error("ERROR connecting");
     }
 

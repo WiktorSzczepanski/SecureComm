@@ -8,6 +8,8 @@
 #include "BQueue.h"
 #include "Komunikaty/Komunikat.h"
 
+#include <memory>
+
 /**
  * Zarowno klient jak i serwer musza posiadac umiejetnosc wysylania jak i odbierania komunikatow
  * Klasa jest pomyslana jako ich wspolny przodek.
@@ -18,10 +20,6 @@ private:
     Sender sender;
     Listener listener;
     BQueue<std::string> bQueue;
-    //odbieracz z kolejki
-
-    //std::thread *listenerThread;
-    //std::thread *messageProcessingThread;
 
 public:
     CommunicationNode(int portSend, int portListen);
@@ -29,9 +27,9 @@ public:
 
 protected:
     // wywolanie procedur ktorych wymaga komunikat, sugestia: hashmapa
-    //virtual void react(Komunikat &komunikat) = 0;
+    virtual void react(Komunikat &komunikat) = 0;
     // utworz komunikat ze stringa, sugestia: potomek ma pole fabryki; uwaga: potrzebna obsluga blednych stringow
-    //virtual Komunikat createKomunikat(std::string) = 0;
+    virtual std::unique_ptr<Komunikat> createKomunikat(std::string) = 0;
 
 private:
     void messageProcessingLoop();

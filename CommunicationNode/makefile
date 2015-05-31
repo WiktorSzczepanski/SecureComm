@@ -4,13 +4,10 @@ COMP := g++
 CFLAGS := -I../ -std=c++11 -pthread
 LFLAGS :=
 
-all: client server
+test: node1 node2 
 
-client: Sender.cpp client.cpp ../Komunikaty/Komunikat.cpp
-	$(COMP) $(CFLAGS) Sender.cpp client.cpp ../Komunikaty/Komunikat.cpp -o client.app
+node1: Sender.cpp Listener.cpp ../Komunikaty/Komunikat.cpp CommunicationNode.cpp node1.cpp
+	$(COMP) $(CFLAGS) Sender.cpp Listener.cpp ../Komunikaty/Komunikat.cpp CommunicationNode.cpp node1.cpp -o node1.app
 
-server: Listener.cpp server.cpp
-	$(COMP) $(CFLAGS) Listener.cpp server.cpp -o server.app
-
-node: Sender.cpp Listener.cpp ../Komunikaty/Komunikat.cpp CommunicationNode.cpp node.cpp
-	$(COMP) $(CFLAGS) Sender.cpp Listener.cpp ../Komunikaty/Komunikat.cpp CommunicationNode.cpp node.cpp -o node.app
+node2: Sender.cpp Listener.cpp ../Komunikaty/Komunikat.cpp CommunicationNode.cpp node2.cpp
+	$(COMP) $(CFLAGS) Sender.cpp Listener.cpp ../Komunikaty/Komunikat.cpp CommunicationNode.cpp node2.cpp -o node2.app

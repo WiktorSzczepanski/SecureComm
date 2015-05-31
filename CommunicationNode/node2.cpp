@@ -3,8 +3,8 @@
 
 int main()
 {
-    TestNode node1(22222,22223);
-    sleep(3);
+    TestNode node1(22223,22222);
+    sleep(1);
     while (1)
     {
         printf("Mowie \"Czesc\"\n");
