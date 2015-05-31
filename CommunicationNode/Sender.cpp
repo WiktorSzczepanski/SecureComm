@@ -34,6 +34,7 @@ void Sender::setConnection(const std::string &hostName)
     {
         if (--noAttempts > 0)
         {
+            sleep(1);
             goto tryAgain;
         }
         error("ERROR connecting");
