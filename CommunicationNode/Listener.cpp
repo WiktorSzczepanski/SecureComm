@@ -70,7 +70,8 @@ void Listener::fetchMessage(int messageSocket)
     {
         error("ERROR reading from socket");
     }
-    processMessage(buffer);
+    passMessage(buffer);
+    //processMessage(buffer);
     //answer(messageSocket);
 
     return;
@@ -95,18 +96,35 @@ int Listener::getPort() const
     return port;
 }
 
-Listener::Listener(const int port, void (*processMessage)(std::string)) : port(port), processMessage(processMessage)
+/*
+Listener::Listener(const int port, void (*processMessage)(std::string, void*))
+        : port(port), processMessage(processMessage)
 {
     // celowo pusty
 }
+ */
 
+Listener::Listener(const int port, BQueue<std::string> &bQueue)
+        : port(port), bQueue(bQueue)
+{
+
+}
+
+void Listener::passMessage(std::string message)
+{
+    bQueue.push(message);
+    printf("Sender: %s\n",message.c_str());
+}
+
+/*
 //TODO temp
 Listener::Listener(const int port) : port(port), processMessage(&Listener::fun)
 {
     // celowo pusty
 }
 
-void Listener::fun(std::string buffer)
+void Listener::fun(std::string buffer, void *mediator)
 {
     printf("Sender: %s\n",buffer.c_str());
 }
+ */

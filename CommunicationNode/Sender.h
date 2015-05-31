@@ -21,21 +21,21 @@
 class Sender
 {
 public:
-    Sender(const std::string &hostName, const int port);
-    void setConnection();
+    Sender(const int port);
+    void setConnection(const std::string &hostName);
+    // de facto zbedne
     int checkConnection() const;
     void send(Komunikat &komunikat);
-    //TODO const
-    void connectionlessSend(Komunikat &komunikat);
+    void connectionlessSend(const std::string &hostName, Komunikat &komunikat);
     void fetchAnswer(char *buffer);
     void disconnect();
 
 protected:
-    const std::string& getHostName() const;
+    //const std::string& getHostName() const;
     int getPort() const;
 
 private:
-    const std::string hostName;
+    //const std::string hostName;
     static const int MAX_BUFOR = 512;
     const int port;
     int bsdSocket;

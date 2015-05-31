@@ -28,9 +28,11 @@ void test1()
 
 void test2()
 {
-    Sender sender = Sender("localhost", 22222);
+    Sender sender = Sender(22222);
     Czesc msg = Czesc();
-    sender.connectionlessSend(msg);
+    sender.connectionlessSend("localhost", msg);
+    sleep(3);
+    sender.connectionlessSend("localhost", msg);
     /*
     sender.connectionlessSend("Czesc");
     sleep(3);

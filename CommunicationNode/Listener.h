@@ -13,11 +13,12 @@
 #include <cstring>
 #include <string>
 #include "ConnectionError.h"
+#include "BQueue.h"
 
 class Listener
 {
 public:
-    Listener(const int port, void (*processMessage)(std::string));
+    Listener(const int port, BQueue<std::string> &bQueue);
     void setup();
     void activityLoop();
     //TODO protected:
@@ -26,8 +27,11 @@ public:
     void fetchMessage(int communicationSocket);
 
     //TODO temp
+    /*
     Listener(const int port);
-    static void fun(std::string);
+    Listener(const int port, void (*processMessage)(std::string));
+    static void fun(std::string, void*);
+     */
 
 protected:
     int getPort() const;
@@ -36,8 +40,10 @@ protected:
 private:
     int bsdSocket;
     const int port;
+    BQueue<std::string> &bQueue;
     /** procedura przejmujaca wiadomosc do osobnego watku, gdzie nastapi obluga wiadomosci */
-    void (*processMessage)(std::string);
+    //void (*processMessage)(std::string, void*);
+    void passMessage(std::string message);
     inline void error(const char *msg) const
     {
         ConnectionError::error(msg);

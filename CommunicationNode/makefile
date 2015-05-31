@@ -1,5 +1,6 @@
-COMP := clang++
-CFLAGS := -I../
+#COMP := clang++
+COMP := g++
+CFLAGS := -I../ -std=c++11
 LFLAGS :=
 
 client: Sender.cpp client.cpp ../Komunikaty/Komunikat.cpp

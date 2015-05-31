@@ -1,6 +1,6 @@
 #include "Sender.h"
 
-void Sender::setConnection()
+void Sender::setConnection(const std::string &hostName)
 {
     struct sockaddr_in address;
     struct hostent *hostDescription;
@@ -14,7 +14,7 @@ void Sender::setConnection()
     }
 
     // Sprawdzenie czy podany host istnieje:
-    hostDescription = gethostbyname(getHostName().c_str());
+    hostDescription = gethostbyname(hostName.c_str());
     if (hostDescription == NULL)
     {
         error("ERROR, no such host\n");
@@ -36,9 +36,9 @@ void Sender::setConnection()
     return;
 }
 
-void Sender::connectionlessSend(Komunikat &komunikat)
+void Sender::connectionlessSend(const std::string &hostName, Komunikat &komunikat)
 {
-    setConnection();
+    setConnection(hostName);
     send(komunikat);
     disconnect();
     return;
@@ -93,17 +93,19 @@ void Sender::disconnect()
     return;
 }
 
+/*
 const std::string& Sender::getHostName() const
 {
     return hostName;
 }
+ */
 
 int Sender::getPort() const
 {
     return port;
 }
 
-Sender::Sender(const std::string &hostName, const int port) : hostName(hostName), port(port)
+Sender::Sender(/*const std::string &hostName,*/ const int port) : /*hostName(hostName),*/ port(port)
 {
     // celowo puste
 }
