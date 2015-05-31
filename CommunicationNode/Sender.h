@@ -16,6 +16,7 @@
 // gethostbyname
 #include <netdb.h>
 #include "ConnectionError.h"
+#include "Komunikaty/Komunikat.h"
 
 class Sender
 {
@@ -23,8 +24,9 @@ public:
     Sender(const std::string &hostName, const int port);
     void setConnection();
     int checkConnection() const;
-    void send(std::string);
-    void connectionlessSend(std::string);
+    void send(Komunikat &komunikat);
+    //TODO const
+    void connectionlessSend(Komunikat &komunikat);
     void fetchAnswer(char *buffer);
     void disconnect();
 

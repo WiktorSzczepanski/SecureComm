@@ -36,24 +36,24 @@ void Sender::setConnection()
     return;
 }
 
-void Sender::connectionlessSend(std::string message)
+void Sender::connectionlessSend(Komunikat &komunikat)
 {
     setConnection();
-    send(message);
+    send(komunikat);
     disconnect();
     return;
 }
 
 //(string login, string tresc)
 //TODO komunikat
-void Sender::send(std::string message)
+void Sender::send(Komunikat &komunikat)
 {
     //const int MAX_BUFOR = 512;
 
     char buffer[MAX_BUFOR];
 
     bzero(buffer,MAX_BUFOR);
-    strcpy(buffer, message.c_str());
+    strcpy(buffer, komunikat.toString().c_str());
 
     // blok write
     if (write(bsdSocket,buffer,strlen(buffer)) < 0)
