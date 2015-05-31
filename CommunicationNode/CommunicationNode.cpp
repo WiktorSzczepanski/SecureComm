@@ -1,13 +1,38 @@
 #include "CommunicationNode.h"
 
-CommunicationNode::CommunicationNode()
+CommunicationNode::CommunicationNode(int portSend, int portListen)
+        : bQueue(), sender(portSend), listener(portListen,bQueue)
 {
-    //TODO temp
-    int port = "22222";
+    listener.setup();
 
-    bQueue = BQueue<std::string>();
-    sender = Sender();
-    listener = Listener(port, bQueue);
+    //watek nasluchiwania
+    std::thread listenerThread(&Listener::activityLoop, &listener);
+    listenerThread.detach();
 
-    // rozruch;
+    //watek reagowania na komunikaty
+    std::thread messageProcessingThread //= std::thread
+    //std::thread t
+            (&CommunicationNode::messageProcessingLoop, this);
+    messageProcessingThread.detach();
+
+    //sleep(15);
+}
+
+void CommunicationNode::messageProcessingLoop()
+{
+    while (1)
+    {
+        std::string komunikatBare = bQueue.pop();
+        //printf("%s\n", komunikatBare.c_str()); //usunac
+        //Komunikat komunikat = createKomunikat(komunikatBare);
+        //react(komunikat);
+
+        sleep(1);
+        //printf("1\n");
+    }
+}
+
+void CommunicationNode::sendMessage(const std::string &address, const Komunikat &komunikat)
+{
+    sender.connectionlessSend(address, komunikat);
 }

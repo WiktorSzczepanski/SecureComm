@@ -96,14 +96,6 @@ int Listener::getPort() const
     return port;
 }
 
-/*
-Listener::Listener(const int port, void (*processMessage)(std::string, void*))
-        : port(port), processMessage(processMessage)
-{
-    // celowo pusty
-}
- */
-
 Listener::Listener(const int port, BQueue<std::string> &bQueue)
         : port(port), bQueue(bQueue)
 {
@@ -113,18 +105,6 @@ Listener::Listener(const int port, BQueue<std::string> &bQueue)
 void Listener::passMessage(std::string message)
 {
     bQueue.push(message);
-    printf("Sender: %s\n",message.c_str());
+    //TODO temp
+    printf("Otrzymalem wiadomosc: %s\n",message.c_str());
 }
-
-/*
-//TODO temp
-Listener::Listener(const int port) : port(port), processMessage(&Listener::fun)
-{
-    // celowo pusty
-}
-
-void Listener::fun(std::string buffer, void *mediator)
-{
-    printf("Sender: %s\n",buffer.c_str());
-}
- */

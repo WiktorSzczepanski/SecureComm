@@ -26,12 +26,6 @@ public:
     int setMessageSocket();
     void fetchMessage(int communicationSocket);
 
-    //TODO temp
-    /*
-    Listener(const int port);
-    Listener(const int port, void (*processMessage)(std::string));
-    static void fun(std::string, void*);
-     */
 
 protected:
     int getPort() const;
@@ -41,8 +35,6 @@ private:
     int bsdSocket;
     const int port;
     BQueue<std::string> &bQueue;
-    /** procedura przejmujaca wiadomosc do osobnego watku, gdzie nastapi obluga wiadomosci */
-    //void (*processMessage)(std::string, void*);
     void passMessage(std::string message);
     inline void error(const char *msg) const
     {

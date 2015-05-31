@@ -5,11 +5,10 @@
 #include <cstring>
 #include <stdio.h>
 #include <stdlib.h>
-//TODO ^delete
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-//TODO ? bzero
+//bzero
 #include <strings.h>
 //potrzebne m. in. do close()
 #include <unistd.h>
@@ -25,8 +24,8 @@ public:
     void setConnection(const std::string &hostName);
     // de facto zbedne
     int checkConnection() const;
-    void send(Komunikat &komunikat);
-    void connectionlessSend(const std::string &hostName, Komunikat &komunikat);
+    void send(const Komunikat &komunikat);
+    void connectionlessSend(const std::string &hostName, const Komunikat &komunikat);
     void fetchAnswer(char *buffer);
     void disconnect();
 

@@ -35,7 +35,7 @@ void test2()
 
 void test3()
 {
-    BQueue<std::string> bQueue = BQueue<std::string>();
+    BQueue<std::string> bQueue;
     Listener listener = Listener(22222,bQueue);
     listener.setup();
     listener.activityLoop();

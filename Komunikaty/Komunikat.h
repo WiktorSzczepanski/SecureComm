@@ -1,4 +1,5 @@
 #pragma once
+//Ponizsze zaleznosci niepotrzebnie komplikuja, a nie sa uzywane w naglowku!
 //#include "Deklaracje.h"
 //#include "User.h"
 #include <string>
@@ -11,7 +12,7 @@ protected:
 public:
 	//metoda do "serializacji" klasy do stringa.
 	//Musi byc zaimplementowana w kazdej klasie pochodnej
-	virtual std::string toString() = 0;
+	virtual std::string toString() const = 0;
 	//konstruktory
 	Komunikat();
 	virtual ~Komunikat();

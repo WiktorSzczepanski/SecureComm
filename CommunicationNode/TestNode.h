@@ -1,0 +1,6 @@
+#ifndef SECURECOMM_TESTNODE_H
+#define SECURECOMM_TESTNODE_H
+
+class TestNode
+
+#endif //SECURECOMM_TESTNODE_H

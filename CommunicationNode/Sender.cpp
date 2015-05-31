@@ -36,7 +36,7 @@ void Sender::setConnection(const std::string &hostName)
     return;
 }
 
-void Sender::connectionlessSend(const std::string &hostName, Komunikat &komunikat)
+void Sender::connectionlessSend(const std::string &hostName, const Komunikat &komunikat)
 {
     setConnection(hostName);
     send(komunikat);
@@ -46,7 +46,7 @@ void Sender::connectionlessSend(const std::string &hostName, Komunikat &komunika
 
 //(string login, string tresc)
 //TODO komunikat
-void Sender::send(Komunikat &komunikat)
+void Sender::send(const Komunikat &komunikat)
 {
     //const int MAX_BUFOR = 512;
 
@@ -93,19 +93,13 @@ void Sender::disconnect()
     return;
 }
 
-/*
-const std::string& Sender::getHostName() const
-{
-    return hostName;
-}
- */
 
 int Sender::getPort() const
 {
     return port;
 }
 
-Sender::Sender(/*const std::string &hostName,*/ const int port) : /*hostName(hostName),*/ port(port)
+Sender::Sender(const int port) : port(port)
 {
     // celowo puste
 }

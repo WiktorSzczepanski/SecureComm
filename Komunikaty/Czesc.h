@@ -6,7 +6,7 @@
 
 class Czesc : public Komunikat
 {
-    std::string toString()
+    std::string toString() const
     {
         return "Czesc";
     }

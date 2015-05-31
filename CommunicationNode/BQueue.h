@@ -9,14 +9,11 @@ template <typename T>
 class BQueue
 {
 private:
+    //mutex nie moze byc kopiowany!
     std::mutex              d_mutex;
     std::condition_variable d_condition;
     std::deque<T>           d_queue;
 public:
-
-    /* mutex nie moze byc kopiowany, trzeba nadpisac domyslne konstruktory. */
-    BQueue() {}
-    BQueue(const BQueue& bQueue) {}
 
     void push(T const& value)
     {
