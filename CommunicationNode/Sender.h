@@ -16,6 +16,7 @@
 #include <netdb.h>
 #include "ConnectionError.h"
 #include "Komunikaty/Komunikat.h"
+#include <mutex>
 
 class Sender
 {
@@ -38,6 +39,7 @@ private:
     static const int MAX_BUFOR = 512;
     const int port;
     int bsdSocket;
+    std::mutex d_mutex;
     inline void error(const char *msg) const
     {
         ConnectionError::error(msg);

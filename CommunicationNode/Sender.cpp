@@ -6,8 +6,10 @@ void Sender::setConnection(const std::string &hostName)
     struct hostent *hostDescription;
     std::string message;
 
-    int noAttempts = 3;
+    //TODO temp, do usuniecia przy przejsciu na wyjatki
+    int noAttempts = 5;
     tryAgain:
+
     // blok socket : tworzenie gniazda
     bsdSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (bsdSocket < 0)
@@ -45,9 +47,12 @@ void Sender::setConnection(const std::string &hostName)
 
 void Sender::connectionlessSend(const std::string &hostName, const Komunikat &komunikat)
 {
-    setConnection(hostName);
-    send(komunikat);
-    disconnect();
+    {
+        std::unique_lock<std::mutex> lock(this->d_mutex);
+        setConnection(hostName);
+        send(komunikat);
+        disconnect();
+    }
     return;
 }
 
