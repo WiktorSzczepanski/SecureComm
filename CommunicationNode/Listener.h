@@ -11,18 +11,23 @@
 //potrzebne m. in. do close()
 #include <unistd.h>
 #include <cstring>
+#include <string>
 #include "ConnectionError.h"
 
 class Listener
 {
 public:
-    Listener(const int port);
+    Listener(const int port, void (*processMessage)(std::string));
     void setup();
     void activityLoop();
     //TODO protected:
     void fetchMessageConnectionless();
     int setMessageSocket();
     void fetchMessage(int communicationSocket);
+
+    //TODO temp
+    Listener(const int port);
+    static void fun(std::string);
 
 protected:
     int getPort() const;
@@ -31,6 +36,8 @@ protected:
 private:
     int bsdSocket;
     const int port;
+    /** procedura przejmujaca wiadomosc do osobnego watku, gdzie nastapi obluga wiadomosci */
+    void (*processMessage)(std::string);
     inline void error(const char *msg) const
     {
         ConnectionError::error(msg);

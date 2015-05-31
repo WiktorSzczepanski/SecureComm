@@ -70,10 +70,7 @@ void Listener::fetchMessage(int messageSocket)
     {
         error("ERROR reading from socket");
     }
-    //TODO
-    printf("Sender: %s\n",buffer);
-
-    //TODO procedura zwracajaca msg AND pobierajaca stosowna odpowiedz
+    processMessage(buffer);
     //answer(messageSocket);
 
     return;
@@ -98,7 +95,18 @@ int Listener::getPort() const
     return port;
 }
 
-Listener::Listener(const int port) : port(port)
+Listener::Listener(const int port, void (*processMessage)(std::string)) : port(port), processMessage(processMessage)
 {
     // celowo pusty
+}
+
+//TODO temp
+Listener::Listener(const int port) : port(port), processMessage(&Listener::fun)
+{
+    // celowo pusty
+}
+
+void Listener::fun(std::string buffer)
+{
+    printf("Sender: %s\n",buffer.c_str());
 }
