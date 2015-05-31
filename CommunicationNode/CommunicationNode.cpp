@@ -10,12 +10,8 @@ CommunicationNode::CommunicationNode(int portSend, int portListen)
     listenerThread.detach();
 
     //watek reagowania na komunikaty
-    std::thread messageProcessingThread //= std::thread
-    //std::thread t
-            (&CommunicationNode::messageProcessingLoop, this);
+    std::thread messageProcessingThread(&CommunicationNode::messageProcessingLoop, this);
     messageProcessingThread.detach();
-
-    //sleep(15);
 }
 
 void CommunicationNode::messageProcessingLoop()
@@ -23,12 +19,10 @@ void CommunicationNode::messageProcessingLoop()
     while (1)
     {
         std::string komunikatBare = bQueue.pop();
-        //printf("%s\n", komunikatBare.c_str()); //usunac
         std::unique_ptr<Komunikat> komunikat = createKomunikat(komunikatBare);
         react(*komunikat.get());
-
+        //TODO delete
         sleep(1);
-        //printf("1\n");
     }
 }
 

@@ -2,6 +2,7 @@
 #define SECURECOMM_TESTNODE_H
 
 #include "CommunicationNode.h"
+#include <random>
 
 class Czesc : public Komunikat
 {
@@ -42,6 +43,11 @@ public:
     }
 };
 
+/**
+ * Test chaotycznej rozmowy. Pokazuje zdolnosc wezla do jednoczesnego nasluchiwania oraz wysylania komunikatow.
+ * Kontrolowanie porzadku komunikacji jest w gestii wlasciwych potomkow klasy CommunicationNode
+ * implementujacych logike klienta i serwera.
+ */
 class TestNode : public CommunicationNode
 {
 public:
@@ -87,9 +93,14 @@ protected:
 private:
     int getNastroj()
     {
+        static std::default_random_engine generator;
+        static std::bernoulli_distribution distribution(0.5);
+        /*
         static int i = 0;
         i = (i+1)%2;
         return i;
+         */
+        return distribution(generator);
     }
 
 };
