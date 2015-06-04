@@ -2,10 +2,21 @@
 
 using namespace std;
 
-//Konstruktor
+// Konstruktor.
 Ekran::Ekran()
 {
-		dodajLinieTekstu("----- ||  SecureComm  || -----");
+	dodajLinieTekstu("----- ||  SecureComm  || -----");
+	setNazwaKlasy("Ekran");
+}
+// Zwraca nazwe klasy.
+string Ekran::getNazwaKlasy()
+{
+	return nazwaKlasy;
+}
+// Ustaw nazwe klasy.
+void Ekran::setNazwaKlasy(string nazwa)
+{
+	nazwaKlasy = nazwa;
 }
 // Czyści widoczny ekran terminala.
 void Ekran::czyscEkran()
@@ -48,6 +59,10 @@ Ekran* Ekran::przejdzDoWybranegoEkranu(int i)
 	return ekran;
 }
 /* ************************************************** */
+EkranWyboru::EkranWyboru()
+{
+	setNazwaKlasy("EkranWyboru");
+}
 //Dodaje opcje do listy.
 void EkranWyboru::dodajOpcje(string nazwaOpcji)
 {
@@ -79,6 +94,10 @@ int EkranWyboru::oczekujNaOdpowiedz()
 	return odpowiedz;
 }
 /* ************************************************************* */
+EkranAutoryzacji::EkranAutoryzacji()
+{
+	setNazwaKlasy("EkranAutoryzacji");
+}
 // Oczekuje na odpowiedź użytkownika i ją zwraca.
 int EkranAutoryzacji::oczekujNaOdpowiedz()
 {
@@ -119,6 +138,7 @@ string EkranAutoryzacji::getHasloSciezka()
 /* ********************************************************* */
 EkranLogowania::EkranLogowania()
 {
+	setNazwaKlasy("EkranLogowania");
 	dodajLinieTekstu("Wybierz sposób logowania:");
 	dodajOpcje("Przy pomocy hasła");
 	dodajOpcje("Przy pomocy klucza");
@@ -148,6 +168,7 @@ Ekran* EkranLogowania::przejdzDoWybranegoEkranu(int i)
 /* ************************************************************ */
 EkranPowitalny::EkranPowitalny()
 {
+	setNazwaKlasy("EkranPowitalny");
 	dodajLinieTekstu("Witaj w programie SecureComm.");
 	dodajLinieTekstu("Aby rozpocząć pracę z programem wybierz jedną z opcji:");
 	dodajOpcje("Logowanie");
@@ -177,6 +198,7 @@ Ekran* EkranPowitalny::przejdzDoWybranegoEkranu(int i)
 /* ************************************************************ */
 EkranPoprawnejAutoryzacji::EkranPoprawnejAutoryzacji()
 {
+	setNazwaKlasy("EkranPoprawnejAutoryzacji");
 	dodajLinieTekstu("Wybierz opcję:");
 	dodajOpcje("Bezpośrednia komunikacja z innym użytkownikiem");
 	dodajOpcje("Dodaj znajomego");
@@ -190,19 +212,22 @@ Ekran* EkranPoprawnejAutoryzacji::przejdzDoWybranegoEkranu(int i)
 	Ekran *ekran = new Ekran();
 	EkranLogowania *eLog = new EkranLogowania();
 	EkranPowrotu *ePowr = new EkranPowrotu();
+	EkranKomunikacji *eKom = new EkranKomunikacji();
+	EkranDodawaniaKontaktu *eDKon = new EkranDodawaniaKontaktu();
+	EkranWyswietlaniaListyUzytkownikow *eWLU = new EkranWyswietlaniaListyUzytkownikow();
+	
 	
 	switch(i)
 	{
 		case 1: ekran = ePowr;
 				break;
-		case 2: ekran = ePowr;
+		case 2: ekran = eDKon;
 				break;
-		case 3: ekran = ePowr;
+		case 3: ekran = eWLU;
 				break;
-		case 4: cout<<"torobie"<<endl;
-				ekran = ePowr;
+		case 4: ekran = eLog;
 				break;
-		case 5: ekran = eLog;
+		case 5: ekran = eKom;
 				break;
 		case 6: exit(EXIT_SUCCESS);
 				break;
@@ -215,18 +240,21 @@ Ekran* EkranPoprawnejAutoryzacji::przejdzDoWybranegoEkranu(int i)
 /* ************************************************************ */
 EkranAutoryzacjiHaslem::EkranAutoryzacjiHaslem()
 {
+	setNazwaKlasy("EkranAutoryzacjiHaslem");
 	dodajLinieTekstu("Wprowadź login:");
 	setKomunikatHasloSciezka("Wprowadź hasło:");
 }
 /* ************************************************************ */
 EkranAutoryzacjiKluczem::EkranAutoryzacjiKluczem()
 {
+	setNazwaKlasy("EkranAutoryzacjiKluczem");
 	dodajLinieTekstu("Wprowadź login:");
 	setKomunikatHasloSciezka("Wprowadź ścieżkę pliku z kluczem publicznym:");
 }
 /* ************************************************************ */
 EkranRejestracji::EkranRejestracji()
 {
+	setNazwaKlasy("EkranRejestracji");
 	dodajLinieTekstu("Podaj kolejne dane w celu rejestracji:");
 	dodajLinieTekstu("Wprowadź login:");
 	setKomunikatHasloSciezka("Wprowadź hasło:");
@@ -258,14 +286,81 @@ Ekran* EkranRejestracji::przejdzDoWybranegoEkranu(int i)
 	return ekran;
 }
 /* *********************************************************** */
-OknoKomunikacji::OknoKomunikacji()
+EkranKomunikacji::EkranKomunikacji()
 {
-	std :: string cmd = "gnome-terminal -e './oknoKomunikacjiBezposredniej'&"; 
-	system (cmd.c_str ());
+	setNazwaKlasy("EkranKomunikacji");
 }
+int EkranKomunikacji::oczekujNaOdpowiedz()
+{
+	string tekst;
+	wyswietlLinieTekstu("ROZMOWA:");
+	cin>>komunikat;//tekst;
+//	while(!tekst.empty())
+//	{
+//		cin>>tekst;
+		
+	//}
+	
+	return 0;
+}
+string EkranKomunikacji::getKomunikat()
+{
+	return komunikat;
+}
+void EkranKomunikacji::setKomunikat(string komunikat)
+{
+	
+}
+/* *********************************************************** */
+EkranDodawaniaKontaktu::EkranDodawaniaKontaktu()
+{
+	setNazwaKlasy("EkranDodaniaKontaktu");
+	dodajLinieTekstu("Podaj id znajomego:");
+}
+
+int EkranDodawaniaKontaktu::oczekujNaOdpowiedz()
+{
+	cin>>idZnajomego;
+}
+Ekran* EkranDodawaniaKontaktu::przejdzDoWybranegoEkranu(int i)
+{
+	Ekran *ekran = new EkranPoprawnejAutoryzacji();
+	return ekran;
+}
+string EkranDodawaniaKontaktu::getIdZnajomego()
+{
+	return idZnajomego;
+}
+void EkranDodawaniaKontaktu::setIdZnajomego(string id)
+{
+	idZnajomego = id;
+}
+EkranDodawaniaKontaktu::~EkranDodawaniaKontaktu()
+{
+	
+}
+/* **************************************************************** */
+EkranWyswietlaniaListyUzytkownikow::EkranWyswietlaniaListyUzytkownikow()
+{
+	setNazwaKlasy("EkranWyswietlaniaListyUzytkownikow");
+	wyswietlLinieTekstu("Czekaj na odpowiedz serwera");
+}
+int EkranWyswietlaniaListyUzytkownikow::oczekujNaOdpowiedz()
+{
+	string odp;
+	cin>>odp;
+}
+Ekran* EkranWyswietlaniaListyUzytkownikow::przejdzDoWybranegoEkranu(int i)
+{
+	Ekran *ekran = new EkranPoprawnejAutoryzacji();
+	return ekran;
+}
+EkranWyswietlaniaListyUzytkownikow::~EkranWyswietlaniaListyUzytkownikow(){}
+
 /* ********************************************************** */
 EkranPowrotu::EkranPowrotu()
 {
+	setNazwaKlasy("EkranPowrotu");
 	dodajLinieTekstu("Opcja nie jest zaimplementowana");
 	dodajOpcje("Powrot go glownego menu");
 	dodajOpcje("Zakoncz");
