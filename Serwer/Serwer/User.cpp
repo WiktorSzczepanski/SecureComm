@@ -1,5 +1,16 @@
 #include "User.h"
 
+//serializacja do bazy danych
+std::string User::toDbString()//1,Marian,haslo1234,2015,06,25#
+{
+	using std::to_string;
+	std::string result = to_string(id) + ',' + this->nazwa + ',' + this->haslo +
+		',' + to_string(this->dataRejestracji.tm_year) +
+		',' + to_string(this->dataRejestracji.tm_mon) +
+		',' + to_string(this->dataRejestracji.tm_mday) + '#';
+	return result;
+}
+
 //gettery
 std::string User::getNazwa()
 {

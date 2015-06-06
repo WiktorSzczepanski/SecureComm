@@ -20,6 +20,9 @@ private:
 	std::tm dataRejestracji;
 	std::tm dataOstatniegoLogowania;
 public:
+	//serializacja do bazy danych
+	std::string toDbString();
+
 	//gettery
 	std::string getNazwa();
 	std::string getHaslo();
