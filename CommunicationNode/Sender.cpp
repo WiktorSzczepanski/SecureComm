@@ -1,5 +1,6 @@
 #include "Sender.h"
 
+//TODO socketTab
 void Sender::setConnection(const std::string &hostName)
 {
     struct sockaddr_in address;
@@ -45,6 +46,7 @@ void Sender::setConnection(const std::string &hostName)
     return;
 }
 
+//TODO bez rozlaczania
 void Sender::connectionlessSend(const std::string &hostName, const Komunikat &komunikat)
 {
     {
@@ -56,29 +58,49 @@ void Sender::connectionlessSend(const std::string &hostName, const Komunikat &ko
     return;
 }
 
+//TODO
+void Sender::send(const std::string &recipient, const Komunikat &komunikat)
+{
+
+}
+
 //(string login, string tresc)
-//TODO komunikat
 void Sender::send(const Komunikat &komunikat)
 {
     //const int MAX_BUFOR = 512;
 
-    char buffer[MAX_BUFOR];
+    //TODO HACK
+    char _buffer[MAX_BUFOR];
+    char *buffer;// = _buffer;
 
-    bzero(buffer,MAX_BUFOR);
-    strcpy(buffer, komunikat.toString().c_str());
-
-    // blok write
-    if (write(bsdSocket,buffer,strlen(buffer)) < 0)
+    int sent;
+    std::string message = komunikat.toString();
+    for (int i=0; i<message.size(); i += MAX_BUFOR-1)
     {
-        error("ERROR writing to socket");
+        //printf("%d/\n",i); //TODO usun
+        buffer = _buffer;
+        bzero(buffer,MAX_BUFOR);
+        message.copy(buffer,MAX_BUFOR-1,i);
+        //for(int j=0; j<MAX_BUFOR-1; ++j) printf("%c",buffer[j]); printf("\n");
+        int bufferLength = strlen(buffer);
+        do
+        {
+            //for(int j=0; j<bufferLength; ++j) printf("%c",buffer[j]); printf(" vs %d\n",bufferLength);
+            //printf("\t%s vs %d",buffer,bufferLength);
+            if ( (sent = write(bsdSocket,buffer,bufferLength)) < 0 )
+            {
+                error("ERROR writing to socket");
+            }
+            buffer += sent;
+            bufferLength -= sent;
+            //TODO lepszy warunek
+        } while ( sent != 0 );
     }
-
-    //fetchAnswer(buffer);
 
     return;
 }
 
-//TODO
+//TODO usun
 void Sender::fetchAnswer(char *buffer)
 {
     bzero(buffer,MAX_BUFOR);

@@ -26,7 +26,6 @@ public:
     int setMessageSocket();
     void fetchMessage(int communicationSocket);
 
-
 protected:
     int getPort() const;
     void answer(int communicationSocket);
@@ -36,6 +35,10 @@ private:
     const int port;
     BQueue<std::string> &bQueue;
     void passMessage(std::string message);
+
+    static const int MAX_SOCKETS = 10;
+    int socketTable[MAX_SOCKETS];
+
     inline void error(const char *msg) const
     {
         ConnectionError::error(msg);

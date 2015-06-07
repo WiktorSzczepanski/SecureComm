@@ -1,7 +1,10 @@
 #include "Listener.h"
 
+#include <sstream>
+
 //using namespace ConnectionError;
 
+//TODO remove cmnts
 void Listener::setup()
 {
     int length;
@@ -65,12 +68,33 @@ void Listener::fetchMessage(int messageSocket)
     //TODO stala!
     char buffer[256];
     bzero(buffer,256);
+    int received;
 
-    if (read(messageSocket,buffer,255) < 0)
+    std::stringstream message;
+
+    int loops = 0;
+
+    do
     {
-        error("ERROR reading from socket");
-    }
-    passMessage(buffer);
+        //printf("%d",loops);
+        if ( (received = read(messageSocket,buffer,255)) < 0 )
+        {
+            error("ERROR reading from socket");
+        }
+        for ( int i=0; i<received; ++i )
+        {
+            //TODO put
+            message << buffer[i];
+        }
+        ++loops;
+    } while ( received != 0 );
+    message.put('\0');
+    //TODO usun
+    //printf("%s\n", message.str().c_str());
+    //printf("Listening loops: %d\n", loops);
+
+    passMessage(message.str());
+
     //processMessage(buffer);
     //answer(messageSocket);
 

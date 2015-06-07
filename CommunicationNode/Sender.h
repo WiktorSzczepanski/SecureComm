@@ -26,6 +26,7 @@ public:
     // de facto zbedne
     int checkConnection() const;
     void send(const Komunikat &komunikat);
+    void send(const std::string &recipient, const Komunikat &komunikat);
     void connectionlessSend(const std::string &hostName, const Komunikat &komunikat);
     void fetchAnswer(char *buffer);
     void disconnect();

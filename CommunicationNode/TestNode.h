@@ -13,7 +13,8 @@ class Czesc : public Komunikat
 public:
     std::string toString() const
     {
-        return "Czesc";
+        return "Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc !!!!"
+                ;
     }
     Czesc()
     {
@@ -74,19 +75,25 @@ public:
 protected:
     void react(Komunikat &komunikat)
     {
+        Komunikat *answer;
         Printer::print("Otrzymałem: " + komunikat.toString());
-        if ( komunikat.getId() == 0 )
+        if ( komunikat.getId() != 0 )
         {
-            if (getNastroj() == 0)
-            {
-                Printer::print("\tMowie \"Idz\"");
-                sendMessage("localhost", Idz());
-            }
-            else {
-                Printer::print("\tMowie \"Uszanowanie\"");
-                sendMessage("localhost", Uszanowanie());
-            }
+            return;
         }
+        if (getNastroj() == 0)
+        {
+            //const Komunikat &komunikat = Idz();
+            answer = new Idz();
+            Printer::print("\tMowie: \"" + answer->toString() +"\"");
+            sendMessage("localhost", *answer);
+        }
+        else {
+            answer = new Uszanowanie();
+            Printer::print("\tMowie: \"" + answer->toString() + "\"");
+            sendMessage("localhost", *answer);
+        }
+        delete answer;
     }
 
     std::unique_ptr<Komunikat> createKomunikat(std::string string)
