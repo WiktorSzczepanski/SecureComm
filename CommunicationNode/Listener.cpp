@@ -106,5 +106,5 @@ void Listener::passMessage(std::string message)
 {
     bQueue.push(message);
     //TODO temp
-    printf("Otrzymalem wiadomosc: %s\n",message.c_str());
+    //printf("Otrzymalem wiadomosc: %s\n",message.c_str());
 }

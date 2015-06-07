@@ -11,7 +11,8 @@ int main()
     sleep(distribution(generator));
     while (1)
     {
-        printf("Mowie \"Czesc\"\n");
+        //printf("Mowie \"Czesc\"\n");
+        Printer::print("Mowie \"Czesc\"");
         node1.sendMessage("localhost", Czesc());
         sleep(distribution(generator));
     }

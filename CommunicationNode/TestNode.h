@@ -2,7 +2,11 @@
 #define SECURECOMM_TESTNODE_H
 
 #include "CommunicationNode.h"
+#include "Komunikaty/Komunikat.h"
 #include <random>
+#include <mutex>
+#include <iostream>
+#include <string>
 
 class Czesc : public Komunikat
 {
@@ -43,6 +47,20 @@ public:
     }
 };
 
+class Printer
+{
+    //static std::mutex mutex;
+public:
+    static void print(std::string string)
+    {
+        static std::mutex mutex;
+        {
+            std::unique_lock<std::mutex> lock(mutex);
+            std::cout << string << std::endl;
+        }
+    }
+};
+
 /**
  * Test chaotycznej rozmowy. Pokazuje zdolnosc wezla do jednoczesnego nasluchiwania oraz wysylania komunikatow.
  * Kontrolowanie porzadku komunikacji jest w gestii wlasciwych potomkow klasy CommunicationNode
@@ -56,15 +74,16 @@ public:
 protected:
     void react(Komunikat &komunikat)
     {
+        Printer::print("Otrzymałem: " + komunikat.toString());
         if ( komunikat.getId() == 0 )
         {
             if (getNastroj() == 0)
             {
-                printf("Mowie \"Idz\"\n");
+                Printer::print("\tMowie \"Idz\"");
                 sendMessage("localhost", Idz());
             }
             else {
-                printf("Mowie \"Uszanowanie\"\n");
+                Printer::print("\tMowie \"Uszanowanie\"");
                 sendMessage("localhost", Uszanowanie());
             }
         }
