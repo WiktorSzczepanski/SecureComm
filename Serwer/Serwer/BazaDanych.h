@@ -1,8 +1,11 @@
 #pragma once
 #include <vector>
 #include <fstream>
+#include <algorithm>
+#include <iostream>
 #include "User.h"
 typedef std::vector<User>::iterator UserIterator;
+typedef std::string::iterator StringIterator;
 class BazaDanych
 {
 private:

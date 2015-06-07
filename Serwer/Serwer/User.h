@@ -32,7 +32,10 @@ public:
 	void setHaslo(std::string noweHaslo);
 
 	//konstruktory
+	User();
 	User(std::string nazwa, std::string haslo, std::tm dataRejestracji);
+	User(unsigned int id, std::string nazwa, std::string haslo, std::tm dataRejestracji);
+	User(std::string id, std::string nazwa, std::string haslo, std::string rok, std::string miesiac, std::string dzien);
 	~User();
 };
 

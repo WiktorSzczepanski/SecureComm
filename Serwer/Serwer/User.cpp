@@ -32,13 +32,26 @@ void User::setHaslo(std::string noweHaslo)
 }
 
 //konstruktory
+User::User()
+{
+
+}
 User::User(std::string nazwa, std::string haslo, std::tm dataRejestracji)
 {
-	this->nazwa = nazwa;
-	this->haslo = haslo;
-	this->dataOstatniegoLogowania = dataOstatniegoLogowania;
+	this->setNazwa(nazwa);
+	this->setHaslo(haslo);
+	this->dataRejestracji = dataRejestracji;
 }
 
+User::User(std::string id, std::string nazwa, std::string haslo, std::string rok, std::string miesiac, std::string dzien)
+{
+	this->id = std::stoi(id);
+	this->setNazwa(nazwa);
+	this->setHaslo(haslo);
+	this->dataRejestracji.tm_year = std::stoi(rok);
+	this->dataRejestracji.tm_mon = std::stoi(miesiac);
+	this->dataRejestracji.tm_mday = std::stoi(dzien);
+}
 
 User::~User()
 {

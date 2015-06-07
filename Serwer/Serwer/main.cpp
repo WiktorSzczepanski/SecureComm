@@ -1,28 +1,28 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <ctime>
+//#include <time.h>
 
 bool pierwszy = false;
 using std::endl;
 
 int main()
 {
-	if (pierwszy)
-	{
-		std::ofstream toFile("Baza.udb");
-		toFile << "1,Marian,haslo1234,2015,06,05#";
-		toFile << "2,Stefan,buu2123,2015,06,02#";
-		toFile.close();
-	}
+	std::string s1 = "0123456789";
+	std::string::iterator it1 = s1.begin() + 1;
+	std::string::iterator it2 = s1.end() - 1;
+	s1.erase(it1, it2);
 
-	else
-	{
-		std::ifstream fromFile("Baza.udb");
-		std::string baza;
-		fromFile >> baza;
-		std::cout << baza <<endl;
-		fromFile.close();
-	}
+	std::cout << s1 <<std::endl;
+
+	time_t t = time(0);   // get time now
+	struct tm * now = localtime(&t);
+	std::cout << (now->tm_year + 1900) << '-'
+		<< (now->tm_mon + 1) << '-'
+		<< now->tm_mday
+		<< endl;
 
 	system("PAUSE");
 	return 0;
