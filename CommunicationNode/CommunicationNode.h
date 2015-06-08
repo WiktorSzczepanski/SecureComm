@@ -9,6 +9,7 @@
 #include "Komunikaty/Komunikat.h"
 
 #include <memory>
+#include <thread>
 
 /**
  * Zarowno klient jak i serwer musza posiadac umiejetnosc wysylania jak i odbierania komunikatow
@@ -21,8 +22,11 @@ private:
     Listener listener;
     BQueue<std::string> bQueue;
 
+    bool stayActive = true;
+
 public:
     CommunicationNode(int portSend, int portListen);
+    ~CommunicationNode();
     void sendMessage(const std::string &address, const Komunikat &komunikat);
 
 protected:

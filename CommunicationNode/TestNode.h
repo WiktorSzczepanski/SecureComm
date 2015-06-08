@@ -57,6 +57,7 @@ public:
         static std::mutex mutex;
         {
             std::unique_lock<std::mutex> lock(mutex);
+            std::cout.flush();
             std::cout << string << std::endl;
         }
     }

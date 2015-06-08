@@ -16,11 +16,13 @@ CommunicationNode::CommunicationNode(int portSend, int portListen)
 
 void CommunicationNode::messageProcessingLoop()
 {
-    while (1)
+    while (stayActive)
     {
-        std::string komunikatBare = bQueue.pop();
-        std::unique_ptr<Komunikat> komunikat = createKomunikat(komunikatBare);
-        react(*komunikat.get());
+        std::string komunikatRaw = bQueue.pop();
+        {
+            std::unique_ptr <Komunikat> komunikat = createKomunikat(komunikatRaw);
+            react(*komunikat.get());
+        }
         //TODO delete
         sleep(1);
     }
@@ -28,5 +30,12 @@ void CommunicationNode::messageProcessingLoop()
 
 void CommunicationNode::sendMessage(const std::string &address, const Komunikat &komunikat)
 {
-    sender.connectionlessSend(address, komunikat);
+    sender._send(address, komunikat);
+}
+
+CommunicationNode::~CommunicationNode()
+{
+    stayActive = false;
+    listener.shutdown();
+    sleep(1);
 }

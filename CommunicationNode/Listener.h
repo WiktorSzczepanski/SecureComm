@@ -25,6 +25,7 @@ public:
     void fetchMessageConnectionless();
     int setMessageSocket();
     void fetchMessage(int communicationSocket);
+    inline void shutdown() {stayActive = false;}
 
 protected:
     int getPort() const;
@@ -35,9 +36,12 @@ private:
     const int port;
     BQueue<std::string> &bQueue;
     void passMessage(std::string message);
+    bool stayActive = true;
 
-    static const int MAX_SOCKETS = 10;
-    int socketTable[MAX_SOCKETS];
+    static const int BUFFER_SIZE = 256;
+    //static const int MAX_SOCKETS = 10;
+    //std::map<std::string,int> sockets;
+    //int socketTable[MAX_SOCKETS];
 
     inline void error(const char *msg) const
     {

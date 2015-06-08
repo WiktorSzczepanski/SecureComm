@@ -38,17 +38,19 @@ void Listener::setup()
  */
 void Listener::activityLoop()
 {
-    while (1)
+    while (stayActive)
     {
         fetchMessageConnectionless();
     }
 }
 
+//TODO
 void Listener::fetchMessageConnectionless()
 {
-    int messageSocket = setMessageSocket();
+    //TODO HACK static
+    static int messageSocket = setMessageSocket();
     fetchMessage(messageSocket);
-    close(messageSocket);
+    //close(messageSocket);
     return;
 }
 
@@ -66,38 +68,38 @@ int Listener::setMessageSocket()
 void Listener::fetchMessage(int messageSocket)
 {
     //TODO stala!
-    char buffer[256];
-    bzero(buffer,256);
+    char buffer[BUFFER_SIZE];
+    bzero(buffer,BUFFER_SIZE);
     int received;
 
     std::stringstream message;
 
-    int loops = 0;
+    //TODO HACK
+    int error_code = 0;
+    socklen_t error_code_size = sizeof(error_code);
+    int val = getsockopt(messageSocket, SOL_SOCKET, SO_ERROR, &error_code, &error_code_size);
+    if (val != 0)
+        return;
 
     do
     {
-        //printf("%d",loops);
-        if ( (received = read(messageSocket,buffer,255)) < 0 )
+        if ( (received = read(messageSocket,buffer,BUFFER_SIZE)) < 0 )
         {
             error("ERROR reading from socket");
         }
-        for ( int i=0; i<received; ++i )
-        {
-            //TODO put
-            message << buffer[i];
-        }
-        ++loops;
+        message.write(buffer,received);
+        //TODO better
+        //printf("Received: %d", received); //TODO timeout
+        if ( received > 0 && buffer[received-1] == '\0' ) break;
     } while ( received != 0 );
-    message.put('\0');
-    //TODO usun
-    //printf("%s\n", message.str().c_str());
-    //printf("Listening loops: %d\n", loops);
 
-    passMessage(message.str());
-
-    //processMessage(buffer);
-    //answer(messageSocket);
-
+    //TODO HACK
+    if ( message.tellp() > 1 )
+    {
+        //printf( "tellp: %d ", message.tellp());
+        //printf("Added element\n");
+        passMessage(message.str());
+    }
     return;
 }
 
@@ -105,14 +107,17 @@ void Listener::fetchMessage(int messageSocket)
  * Do uzytkowania wewnatrz metody fetchListener.
  * Odpowiedzi niepotrzebnie blokuja obiekt Listener, odradza sie korzystanie.
  */
+//TODO usunac
 void Listener::answer(int messageSocket)
 {
+    /*
     char *answer = "Otrzymalem wiadomosc";
     if (write(messageSocket,answer,strlen(answer)*sizeof(char)) < 0)
     {
         error("ERROR writing to socket");
     }
     return;
+     */
 }
 
 int Listener::getPort() const
