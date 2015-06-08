@@ -29,6 +29,8 @@ class Ekran
 	void setNazwaKlasy(string nazwa);
 	// Czyści widoczny ekran terminala.
 	void czyscEkran();
+	// Czyści liste komunikatów.
+	void czyscListeKomunikatow();
 	// Wyświetla pojedynczą linie tekstu.
 	void wyswietlLinieTekstu(string linia);
 	// Wyświetla tekst składający się z kilku linii.
@@ -184,6 +186,41 @@ class EkranBleduOperacji : Ekran
 		wyswietlTekst(komunikatBledu);
 	}
 };
+/* Klasa umożliwiająca wybór użytkownika do komunikacji */
+class EkranWyboruZnajomego : public Ekran
+{
+	private:
+	string idZnajomego;
+	string loginZnajomego;
+	
+	public:
+	EkranWyboruZnajomego();
+	int oczekujNaOdpowiedz();
+	Ekran* przejdzDoWybranegoEkranu(int i);
+	string getIdZnajomego();
+	string getLoginZnajomego();
+	void setIdZnajomego(string idZnajomego);
+	void setLoginZnajomego(string loginZnajomego);
+	~EkranWyboruZnajomego();
+};
+
+/* Klasa umożliwiająca wybór użytkownika do komunikacji */
+class EkranWyboruZnajomegoBezposrednia : public Ekran
+{
+	private:
+	string adresOdbiorcy;
+	string loginZnajomego;
+	
+	public:
+	EkranWyboruZnajomegoBezposrednia();
+	int oczekujNaOdpowiedz();
+	Ekran* przejdzDoWybranegoEkranu(int i);
+	string getAdresOdbiorcy();
+	string getLoginZnajomego();
+	void setAdresOdbiorcy(string idZnajomego);
+	void setLoginZnajomego(string loginZnajomego);
+	~EkranWyboruZnajomegoBezposrednia();
+};
 
 /* Klasa umożliwiająca prowadzenie komunikacji z innym użytkownikem
  */ 
@@ -191,11 +228,18 @@ class EkranKomunikacji : public Ekran
 {
 	private:
 	string komunikat;
+	string loginZnajomego;
+	string loginUzytkownika;
 	
 	public:
 	EkranKomunikacji();
-	int oczekujNaOdpowiedz();
+	virtual int oczekujNaOdpowiedz();
 	string getKomunikat();
+	void setLoginZnajomego(string login);
+	string getLoginZnajomego();
+	void setLoginUzytkownika(string login);
+	string getLoginUzytkownika();
+	Ekran* przejdzDoWybranegoEkranu(int i);
 	void setKomunikat(string komunikat);
 };
 
@@ -211,12 +255,26 @@ class EkranOczekiwaniaNaSerwer : public Ekran
  */
 class EkranDodawaniaKontaktu : public Ekran
 {
-
+	private:
+	string idZnajomego;
+	
+	public:
+	EkranDodawaniaKontaktu();
+	int oczekujNaOdpowiedz();
+	Ekran* przejdzDoWybranegoEkranu(int i);
+	string getIdZnajomego();
+	void setIdZnajomego(string idZnajomego);
+	~EkranDodawaniaKontaktu();
 };
 /* Klasa umożliwiająca wyświetlenie listy użytkowników
  */
 class EkranWyswietlaniaListyUzytkownikow : public Ekran
 {
+	public:
+	EkranWyswietlaniaListyUzytkownikow();
+	int oczekujNaOdpowiedz();
+	Ekran* przejdzDoWybranegoEkranu(int i);
+	~EkranWyswietlaniaListyUzytkownikow();
 
 };
 
@@ -231,7 +289,13 @@ class EkranKomunikacjiPosredniej : public EkranKomunikacji
  */
 class EkranKomunikacjiBezposredniej : public EkranKomunikacji
 {
-
+	private:
+	string adresOdbiorcy;
+	public:
+	EkranKomunikacjiBezposredniej();
+	void setAdresOdbiorcy(string adres);
+	string getAdresOdbiorcy();
+	~EkranKomunikacjiBezposredniej();
 }; 
 
 /* Klasa umożliwiająca wysyłanie wiadomości od klienta
