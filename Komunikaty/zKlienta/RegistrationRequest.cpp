@@ -31,11 +31,11 @@ void RegistrationRequest::setHaslo(const std::string &noweHaslo)
 }
 
 //konstruktory
-RegistrationRequest::RegistrationRequest(User &user)
+RegistrationRequest::RegistrationRequest(std::string nazwa, std::string haslo)
 {
 	this->setId(REGISTRATION_REQUEST);
-	this->setNazwaUzytkownika(user.getNazwa());
-	this->setHaslo(user.getHaslo());
+	this->setNazwaUzytkownika(nazwa);
+	this->setHaslo(haslo);
 }
 
 

@@ -7,7 +7,7 @@ class WiadomoscPosrednia :
 	//idKomunikatu - dziedziczone z "Komunikat"
 	//od wiadomosci rozni sie tylko identyfikatorem
 public:
-	WiadomoscPosrednia(const UserId &idOdbiorcy, const std::string &content);
+	WiadomoscPosrednia(const UserId nadawca, const UserId &idOdbiorcy, const std::string &content);
 	~WiadomoscPosrednia();
 };
 

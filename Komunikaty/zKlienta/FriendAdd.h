@@ -1,5 +1,5 @@
 #pragma once
-#include "Komunikat.h"
+#include "../Komunikat.h"
 class FriendAdd :
 	public Komunikat
 {
@@ -18,7 +18,6 @@ public:
 	void setIdDodawanego(const UserId &nowyDodawany);
 
 	//konstruktory
-	FriendAdd(const UserId &nowyDodawany);
+	FriendAdd(const UserId nadawca, const UserId &nowyDodawany);
 	~FriendAdd();
 };
-

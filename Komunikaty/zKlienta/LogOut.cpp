@@ -9,8 +9,9 @@ std::string LogOut::toString()
 }
 
 //konstruktory
-LogOut::LogOut()
+LogOut::LogOut(const UserId nadawca)
 {
+	this->setIdNadawcy(nadawca);
 	this->setId(LOGOUT);
 }
 

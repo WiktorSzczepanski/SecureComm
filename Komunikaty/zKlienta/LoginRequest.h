@@ -1,5 +1,5 @@
 #pragma once
-#include "Komunikat.h"
+#include "../Komunikat.h"
 class LoginRequest :
 	public Komunikat
 {
@@ -21,7 +21,6 @@ public:
 	void setHaslo(const std::string &noweHaslo);
 
 	//konstruktory
-	LoginRequest(std::string nazwa, std::string haslo);
+	LoginRequest(const UserId nadawca, std::string nazwa, std::string haslo);
 	~LoginRequest();
 };
-

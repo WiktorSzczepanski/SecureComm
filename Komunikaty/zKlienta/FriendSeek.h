@@ -1,5 +1,5 @@
 #pragma once
-#include "Komunikat.h"
+#include "../Komunikat.h"
 class FriendSeek :
 	public Komunikat
 {
@@ -13,7 +13,7 @@ public:
 	//gettery
 	std::string getNazwaSzukanego();
 	//settery
-	void setNazwaSzukanego(const std::string &nowySzukany);
+	void setNazwaSzukanego(const UserId nadawca, const std::string &nowySzukany);
 	//konstruktory
 	FriendSeek();
 	~FriendSeek();

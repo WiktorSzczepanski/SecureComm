@@ -21,9 +21,10 @@ void FriendAdd::setIdDodawanego(const UserId &nowyDodawany)
 }
 
 //konstruktory
-FriendAdd::FriendAdd(const UserId &nowyDodawany)
+FriendAdd::FriendAdd(const UserId nadawca, const UserId &nowyDodawany)
 {
 	this->setId(FRIEND_ADD);
+	this->setIdNadawcy(nadawca);
 	this->setIdDodawanego(nowyDodawany);
 }
 
