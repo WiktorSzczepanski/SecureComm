@@ -1,6 +1,5 @@
 #include "Sender.h"
 
-//TODO socketTab; bez skokow; wyjatki
 void Sender::setConnection(const std::string &hostName)
 {
     struct sockaddr_in address;
@@ -52,19 +51,18 @@ void Sender::setConnection(const std::string &hostName)
     return;
 }
 
-//TODO bez rozlaczania
-bool Sender::_send(const std::string &hostName, const Komunikat &komunikat)
+bool Sender::sendKomunikat(const std::string &hostName, const Komunikat &komunikat)
 {
     int result;
     {
         std::unique_lock<std::mutex> lock(this->d_mutex);
         int socket = getSocket(hostName);
-        result = _send(socket, komunikat);
+        result = sendKomunikat(socket, komunikat);
         //disconnect();
     }
     if (result != 0)
     {
-        printf("ERROR writing to socket: %s\n", strerror(result));
+        //printf("ERROR writing to socket: %s\n", strerror(result));
         return false;
     }
     return true;
@@ -74,7 +72,6 @@ int Sender::getSocket(const std::string &hostName)
 {
     if ( !isConnected(hostName) )
     {
-        //printf("Setting connection to %s", hostName.c_str());
         setConnection(hostName);
     }
     return sockets[hostName];
@@ -82,11 +79,10 @@ int Sender::getSocket(const std::string &hostName)
 
 bool Sender::isConnected(const std::string &hostName)
 {
-    //printf("Connection: %d\n",checkConnection(sockets[hostName]));
     return sockets.count(hostName) == 1 && checkConnection(sockets[hostName]); //TODO delete redundancy
 }
 
-int Sender::_send(int bsdSocket, const Komunikat &komunikat)
+int Sender::sendKomunikat(int bsdSocket, const Komunikat &komunikat)
 {
     //TODO HACK
     char memory[MAX_BUFOR+1];
@@ -125,20 +121,6 @@ int Sender::_send(int bsdSocket, const Komunikat &komunikat)
     return result;
 }
 
-//TODO usun
-void Sender::fetchAnswer(char *buffer)
-{
-    /*
-    bzero(buffer,MAX_BUFOR);
-    if (read(bsdSocket,buffer,MAX_BUFOR - 1) < 0)
-    {
-        error("ERROR reading from socket");
-    }
-    //TODO !zwroc odpowiedz, a to usun
-    printf("Listener: %s\n",buffer);
-    return;
-     */
-}
 
 bool Sender::checkConnection(int bsdSocket) const
 {
@@ -148,12 +130,15 @@ bool Sender::checkConnection(int bsdSocket) const
     return (val == 0);
 }
 
-void Sender::disconnect(const std::string &hostName)
+bool Sender::disconnect(const std::string &hostName)
 {
-    if (isConnected(hostName))
+    bool result = isConnected(hostName);
+    if (result)
     {
         disconnect(sockets[hostName]);
+        sockets.erase(hostName);
     }
+    return result;
 }
 
 void Sender::disconnect(int bsdSocket)
@@ -176,10 +161,8 @@ Sender::Sender(const int port) : port(port)
 //TODO
 Sender::~Sender()
 {
-    /*
     for (std::map<std::string,int>::iterator iterator = sockets.begin(); iterator != sockets.end(); ++iterator)
     {
         disconnect(iterator->second);
     }
-     */
 }

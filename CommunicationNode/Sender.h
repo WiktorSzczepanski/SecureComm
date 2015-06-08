@@ -12,7 +12,6 @@
 #include <strings.h>
 //potrzebne m. in. do close()
 #include <unistd.h>
-// gethostbyname
 #include <netdb.h>
 #include "ConnectionError.h"
 #include "Komunikaty/Komunikat.h"
@@ -22,36 +21,46 @@
 class Sender
 {
 public:
+    /* ctor ustawiajacy port nasluchiwania */
     Sender(const int port);
+    /* dtor rozlaczajacy gniazda */
     ~Sender();
+    /* ustanowienie polaczenia */
     void setConnection(const std::string &hostName);
-    // de facto zbedne
-    //void send(const std::string &recipient, const Komunikat &komunikat);
-    bool _send(const std::string &hostName, const Komunikat &komunikat);
-    void fetchAnswer(char *buffer);
-    void disconnect(const std::string &hostName);
+    /* wyslanie komunikatu do adresata */
+    bool sendKomunikat(const std::string &hostName, const Komunikat &komunikat);
+    /* rozlaczenie polaczenia; @return: false - polaczenie nie bylo ustanowione */
+    bool disconnect(const std::string &hostName);
 
-protected:
-    //const std::string& getHostName() const;
-    int getPort() const;
+private:
+    /* sprawdzenie czy polaczenie zostalo nawiazane i czy nie zostalo zerwane */
     bool isConnected(const std::string &hostName);
+    /* rozlaczenie polaczenia */
     void disconnect(int bsdSocket);
+    /* sprawdzenie czy polaczenie nie zostalo zerwane */
     bool checkConnection(int bsdSocket) const;
 
 private:
-    //const std::string hostName;
+    /* wielkosc bufora jednorazowo przesylanej porcji komunikatu */
     static const int MAX_BUFOR = 512;
+    /* port na ktorym odbywa sie wysylanie */
     const int port;
-    //int bsdSocket;
+    /* muteks chroniacy przed jednoczesnym wysylaniem przez wiele watkow */
     std::mutex d_mutex;
+    /* kolekcja gniazd dla polaczen z wieloma zdresatami */
     std::map<std::string,int> sockets;
 
-    int _send(int bsdSocket, const Komunikat &komunikat);
+    /* wyslanie komunikatu na konkretnym gniezdzie */
+    int sendKomunikat(int bsdSocket, const Komunikat &komunikat);
+    /* pobranie gniazda przypisanego adresatowi; jezeli nie istnieje, utworzyc je. */
     int getSocket(const std::string &hostName);
+    /* delegacja obslugi bledu; docelowo jako wyjatki */
     inline void error(const char *msg) const
     {
         ConnectionError::error(msg);
     }
+    /* getter portu */
+    int getPort() const;
 };
 
 #endif //SECURECOMM_SENDER_H

@@ -9,11 +9,15 @@ int main()
 
     TestNode node1(22222,22223);
     sleep(distribution(generator));
-    while (1)
+
+    int i = 5;
+
+    while (i)
     {
         //printf("Mowie \"Czesc\"\n");
         Printer::print("Mowie \"Czesc\"");
         node1.sendMessage("localhost", Czesc());
         sleep(distribution(generator));
+        --i;
     }
 }

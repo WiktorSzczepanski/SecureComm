@@ -11,6 +11,7 @@
 class Czesc : public Komunikat
 {
 public:
+    /* Test przeslania bardzo dlugiego komunikatu */
     std::string toString() const
     {
         return "Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc !!!!"
@@ -84,7 +85,6 @@ protected:
         }
         if (getNastroj() == 0)
         {
-            //const Komunikat &komunikat = Idz();
             answer = new Idz();
             Printer::print("\tMowie: \"" + answer->toString() +"\"");
             sendMessage("localhost", *answer);
@@ -122,11 +122,6 @@ private:
     {
         static std::default_random_engine generator;
         static std::bernoulli_distribution distribution(0.5);
-        /*
-        static int i = 0;
-        i = (i+1)%2;
-        return i;
-         */
         return distribution(generator);
     }
 

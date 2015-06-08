@@ -4,7 +4,8 @@
 #include <cstdio>
 
 /**
- * Prosta obsluga bledow. Mozna zaimplementowac rowniez jako rzucanie wyjatkow.
+ * Klasa obslugi bledow;
+ * docelowo jako rzucanie wyjatkow
  */
 class ConnectionError
 {

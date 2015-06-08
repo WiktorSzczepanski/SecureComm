@@ -19,29 +19,36 @@ class Listener
 {
 public:
     Listener(const int port, BQueue<std::string> &bQueue);
+    /* ustawienie nasluchiwania */
     void setup();
+    /* funkcjonalnosc odbierania komunikatow */
     void activityLoop();
-    //TODO protected:
-    void fetchMessageConnectionless();
-    int setMessageSocket();
-    void fetchMessage(int communicationSocket);
+    /* zlecenie zakonczenia petli metody activityLoop */
     inline void shutdown() {stayActive = false;}
 
-protected:
-    int getPort() const;
-    void answer(int communicationSocket);
+private:
+    /* funkcjonalnosc pobierania wiadomosci */
+    void fetchMessage();
+    /* ustawienie gniazda komunikacji */
+    int setMessageSocket();
+    /* pobranie wiadomosci z gniazda */
+    void fetchMessage(int communicationSocket);
 
 private:
+    int getPort() const;
+
+private:
+    /* gniazdo nasluchiwania */
     int bsdSocket;
+    /* port nasluchiwania */
     const int port;
+    /* kolejka blokujaca na ktora odkladane sa przychodzace kompletne komunikaty */
     BQueue<std::string> &bQueue;
     void passMessage(std::string message);
+    /* utrzymanie aktywnosci petli metody activityLoop */
     bool stayActive = true;
 
     static const int BUFFER_SIZE = 256;
-    //static const int MAX_SOCKETS = 10;
-    //std::map<std::string,int> sockets;
-    //int socketTable[MAX_SOCKETS];
 
     inline void error(const char *msg) const
     {

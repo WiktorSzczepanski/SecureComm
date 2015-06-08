@@ -2,9 +2,6 @@
 
 #include <sstream>
 
-//using namespace ConnectionError;
-
-//TODO remove cmnts
 void Listener::setup()
 {
     int length;
@@ -18,7 +15,6 @@ void Listener::setup()
     }
 
     // dowiaz serwer do gniazda
-    //TODO getservbyname()
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(getPort());
@@ -40,14 +36,14 @@ void Listener::activityLoop()
 {
     while (stayActive)
     {
-        fetchMessageConnectionless();
+        fetchMessage();
     }
 }
 
 //TODO
-void Listener::fetchMessageConnectionless()
+void Listener::fetchMessage()
 {
-    //TODO HACK static
+    //TODO to jest HACK
     static int messageSocket = setMessageSocket();
     fetchMessage(messageSocket);
     //close(messageSocket);
@@ -103,22 +99,6 @@ void Listener::fetchMessage(int messageSocket)
     return;
 }
 
-/**
- * Do uzytkowania wewnatrz metody fetchListener.
- * Odpowiedzi niepotrzebnie blokuja obiekt Listener, odradza sie korzystanie.
- */
-//TODO usunac
-void Listener::answer(int messageSocket)
-{
-    /*
-    char *answer = "Otrzymalem wiadomosc";
-    if (write(messageSocket,answer,strlen(answer)*sizeof(char)) < 0)
-    {
-        error("ERROR writing to socket");
-    }
-    return;
-     */
-}
 
 int Listener::getPort() const
 {
@@ -134,6 +114,4 @@ Listener::Listener(const int port, BQueue<std::string> &bQueue)
 void Listener::passMessage(std::string message)
 {
     bQueue.push(message);
-    //TODO temp
-    //printf("Otrzymalem wiadomosc: %s\n",message.c_str());
 }

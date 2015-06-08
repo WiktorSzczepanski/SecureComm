@@ -5,6 +5,7 @@ CommunicationNode::CommunicationNode(int portSend, int portListen)
 {
     listener.setup();
 
+    /*
     //watek nasluchiwania
     std::thread listenerThread(&Listener::activityLoop, &listener);
     listenerThread.detach();
@@ -12,6 +13,15 @@ CommunicationNode::CommunicationNode(int portSend, int portListen)
     //watek reagowania na komunikaty
     std::thread messageProcessingThread(&CommunicationNode::messageProcessingLoop, this);
     messageProcessingThread.detach();
+     */
+
+    //watek nasluchiwania
+    listenerThread = new std::thread(&Listener::activityLoop, &listener);
+    listenerThread->detach();
+
+    //watek reagowania na komunikaty
+    messageProcessingThread = new std::thread(&CommunicationNode::messageProcessingLoop, this);
+    messageProcessingThread->detach();
 }
 
 void CommunicationNode::messageProcessingLoop()
@@ -23,19 +33,31 @@ void CommunicationNode::messageProcessingLoop()
             std::unique_ptr <Komunikat> komunikat = createKomunikat(komunikatRaw);
             react(*komunikat.get());
         }
-        //TODO delete
-        sleep(1);
+        //sleep(1);
     }
 }
 
-void CommunicationNode::sendMessage(const std::string &address, const Komunikat &komunikat)
+bool CommunicationNode::sendMessage(const std::string &address, const Komunikat &komunikat)
 {
-    sender._send(address, komunikat);
+    return sender.sendKomunikat(address, komunikat);
+}
+
+bool CommunicationNode::disconnect(const std::string &address)
+{
+    return sender.disconnect(address);
 }
 
 CommunicationNode::~CommunicationNode()
 {
     stayActive = false;
     listener.shutdown();
+
     sleep(1);
+
+    //listenerThread->join();
+    //messageProcessingThread->join();
+
+    delete listenerThread;
+    delete messageProcessingThread;
+
 }
