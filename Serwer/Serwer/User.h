@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #pragma once
 #include <string>
 #include <vector>
@@ -24,8 +25,9 @@ public:
 	std::string toDbString();
 
 	//gettery
-	std::string getNazwa();
-	std::string getHaslo();
+	unsigned int getId() const;
+	std::string getNazwa() const;
+	std::string getHaslo() const;
 
 	//settery
 	void setNazwa(std::string nowaNazwa);
@@ -33,9 +35,31 @@ public:
 
 	//konstruktory
 	User();
-	User(std::string nazwa, std::string haslo, std::tm dataRejestracji);
+	User(unsigned int id, std::string nazwa, std::string haslo);
+	//User(std::string nazwa, std::string haslo, std::tm dataRejestracji);
 	User(unsigned int id, std::string nazwa, std::string haslo, std::tm dataRejestracji);
 	User(std::string id, std::string nazwa, std::string haslo, std::string rok, std::string miesiac, std::string dzien);
 	~User();
 };
 
+//operatory
+inline bool operator==(const User& lhs, const User& rhs)
+{
+	return lhs.getId()==rhs.getId() && lhs.getNazwa()==rhs.getNazwa();
+}
+inline bool operator==(const User& user, const int& number)
+{
+	return user.getId() == number;
+}
+inline bool operator==(const int& number, const User& user)
+{
+	return number == user.getId();
+}
+inline bool operator==(const User& user, const std::string& string)
+{
+	return string == user.getNazwa();
+}
+inline bool operator==(const std::string& string, const User& user)
+{
+	return user.getNazwa() == string;
+}

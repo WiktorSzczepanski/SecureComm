@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include "BazaDanych.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -7,22 +8,36 @@
 
 bool pierwszy = false;
 using std::endl;
+using std::cout;
 
 int main()
 {
-	std::string s1 = "0123456789";
-	std::string::iterator it1 = s1.begin() + 1;
-	std::string::iterator it2 = s1.end() - 1;
-	s1.erase(it1, it2);
+	cout << BazaDanych::getBazaDanych().getMaxId() << endl;
+	User user1 = BazaDanych::getBazaDanych().wyszukajPoId(0);
+	User user2 = BazaDanych::getBazaDanych().wyszukajPoId(1);
+	cout << "user1: " << user1.getId() << endl
+		<< user1.getNazwa() << endl
+		<< user1.getHaslo() << endl << endl;
+	cout << "user2: " << user2.getId() << endl
+		<< user2.getNazwa() << endl
+		<< user2.getHaslo() << endl << endl;
 
-	std::cout << s1 <<std::endl;
+	cout << "Liczba uzytkownikow: " << BazaDanych::getBazaDanych().getUserCount() << endl;
+	/*
+	std::string string("0,JohnDoe,haslo,115,5,8#");
+	std::string::iterator it = string.begin();
+	cout << "*it: " << *it << endl;
+	if (*it == '0')	cout << "*it == 0" << endl;
+	else cout << "*it != 0" << endl;
 
-	time_t t = time(0);   // get time now
-	struct tm * now = localtime(&t);
-	std::cout << (now->tm_year + 1900) << '-'
-		<< (now->tm_mon + 1) << '-'
-		<< now->tm_mday
-		<< endl;
+	std::string pomocniczy;
+	while (*it != ',' && *it != '#')
+	{
+		pomocniczy += *it;
+		it++;
+	}
+	cout << pomocniczy << endl;
+	//*/
 
 	system("PAUSE");
 	return 0;

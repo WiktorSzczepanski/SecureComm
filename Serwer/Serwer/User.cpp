@@ -12,11 +12,15 @@ std::string User::toDbString()//1,Marian,haslo1234,2015,06,25#
 }
 
 //gettery
-std::string User::getNazwa()
+unsigned int User::getId() const
+{
+	return this->id;
+}
+std::string User::getNazwa() const
 {
 	return this->nazwa;
 }
-std::string User::getHaslo()
+std::string User::getHaslo() const
 {
 	return this->haslo;
 }
@@ -34,15 +38,33 @@ void User::setHaslo(std::string noweHaslo)
 //konstruktory
 User::User()
 {
-
 }
+User::User(unsigned int id, std::string nazwa, std::string haslo)
+{
+	this->id = id;
+	this->setNazwa(nazwa);
+	this->setHaslo(haslo);
+
+	time_t t = time(0);   // get time now
+	struct tm * now = localtime(&t);
+	this->dataRejestracji = *now;
+}
+/*
 User::User(std::string nazwa, std::string haslo, std::tm dataRejestracji)
 {
+	this->id = BazaDanych::getBazaDanych().getMaxId() + 1;
 	this->setNazwa(nazwa);
 	this->setHaslo(haslo);
 	this->dataRejestracji = dataRejestracji;
 }
-
+*/
+User::User(unsigned int id, std::string nazwa, std::string haslo, std::tm dataRejestracji)
+{
+	this->id = id;
+	this->setNazwa(nazwa);
+	this->setHaslo(haslo);
+	this->dataRejestracji = dataRejestracji;
+}
 User::User(std::string id, std::string nazwa, std::string haslo, std::string rok, std::string miesiac, std::string dzien)
 {
 	this->id = std::stoi(id);
