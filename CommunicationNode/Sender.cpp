@@ -64,7 +64,7 @@ bool Sender::sendKomunikat(const std::string &hostName, const Komunikat &komunik
         catch (ConnectionError &e)
         {
             disconnect(hostName);
-            printf("%s\n", e.what());
+            //printf("%s\n", e.what());
             return false;
         }
     }

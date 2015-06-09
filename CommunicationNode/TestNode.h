@@ -78,7 +78,7 @@ protected:
     void react(Komunikat &komunikat)
     {
         Komunikat *answer;
-        //Printer::print("Otrzymałem: " + komunikat.toString());
+        Printer::print("Otrzymałem: " + komunikat.toString());
         if ( komunikat.getId() != 0 )
         {
             return;
@@ -99,16 +99,17 @@ protected:
 
     std::unique_ptr<Komunikat> createKomunikat(std::string string)
     {
-        char ch = string[0];
-        if ( ch == 'C' )
+        if (string == Czesc().toString())
         {
             return std::unique_ptr<Komunikat>(new Czesc());
         }
-        if ( ch == 'A' )
+        //if ( ch == 'A' )
+        if (string == Idz().toString())
         {
             return std::unique_ptr<Komunikat>(new Idz());
         }
-        if ( ch == 'U' )
+        //if ( ch == 'U' )
+        if (string == Uszanowanie().toString())
         {
             return std::unique_ptr<Komunikat>(new Uszanowanie());
         }
@@ -116,8 +117,6 @@ protected:
         {
             throw "Otrzymano smieci";
         }
-        // throw
-
     }
 
 private:

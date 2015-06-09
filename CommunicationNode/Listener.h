@@ -31,11 +31,6 @@ public:
 private:
     /* funkcjonalnosc pobierania wiadomosci */
     void fetchMessage();
-    void fetchMessage2();
-    /* ustawienie gniazda komunikacji */
-    int setMessageSocket();
-    /* pobranie wiadomosci z gniazda */
-    void fetchMessage(int communicationSocket);
 
 private:
     int getPort() const;

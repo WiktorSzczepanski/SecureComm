@@ -61,6 +61,14 @@ public:
      */
     bool disconnect(const std::string &hostName);
 
+    /**
+     * TODO
+     * Pobieranie adresu nadawcy ostatniego komunikatu;
+     * Do korzystania wewnatrz react()
+     * Niepotrzebna, jezeli komunikat zawiera informacje niezbedna do identyfikacji nadawcy
+     */
+    inline std::string getLastSenderAddress() {}
+
 private:
     /*
      * Metoda pobierajaca komunikat i wywolujaca dla niego kolejno metody createKomunikat i react;

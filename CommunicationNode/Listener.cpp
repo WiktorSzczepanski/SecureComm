@@ -43,21 +43,11 @@ void Listener::activityLoop()
 {
     while (stayActive)
     {
-        fetchMessage2();
+        fetchMessage();
     }
 }
 
-//TODO delete
 void Listener::fetchMessage()
-{
-    //TODO to jest HACK
-    static int messageSocket = setMessageSocket();
-    fetchMessage(messageSocket);
-    //close(messageSocket);
-    return;
-}
-
-void Listener::fetchMessage2()
 {
     int nActive;
     int msgsock;
@@ -98,8 +88,7 @@ void Listener::fetchMessage2()
         nfds = std::max(nfds, msgsock + 1);
         // TODO sprawdzenie czy msgsock>MAX_FDS
         socketTable[msgsock] = msgsock;
-        //TODO usun linie
-        printf("accepted...\n");
+        //printf("accepted...\n");
     }
 
     //TODO zamiast socketTable gniazda : std::set<int>
@@ -111,22 +100,16 @@ void Listener::fetchMessage2()
             memset(buffer, 0, sizeof(buffer));
             if ((received = recv(msgsock, buffer, BUFFER_SIZE, MSG_NOSIGNAL)) == -1)
             {
-                //TODO miekka obsluga
                 error("reading stream message");
             }
             // rozlaczenie gniazda
             if (received == 0)
             {
-                //TODO tmp
-                printf("Mam zero\n");
-
-                //TODO przerobka!
-                printf("Ending connection\n");
+                //printf("Ending connection\n");
                 close( msgsock );
                 /* usuń ze zbioru */
                 socketTable[msgsock]=-1;
 
-                //TODO HACK
                 continue;
             }
 
@@ -138,7 +121,7 @@ void Listener::fetchMessage2()
                 if ( buffer[j] == '\0' )
                 {
                     //printf("Z zerem na %d vs received: %d.\n", j, received);
-                    concatenate(socket,buffer,j+1);
+                    concatenate(socket,buffer,j);
                     forwardMessage(socket);
                     int remainder = received - j - 1;
                     if ( remainder > 0 )
@@ -164,7 +147,7 @@ void Listener::forwardMessage(int socket)
     std::stringstream *msgBuffer = msgStreams[socket];
     std::string komunikatStr = msgBuffer->str();
     //TODO remove line
-    printf("Podaje wiadomosc: %s\n", komunikatStr.c_str());
+    //printf("Podaje wiadomosc: %s\n", komunikatStr.c_str());
     msgStreams.erase(socket);
     delete msgBuffer;
     passMessage(komunikatStr);
@@ -178,57 +161,6 @@ void Listener::concatenate(int socket, char *buffer, int length)
     }
     msgStreams[socket]->write(buffer,length);
 }
-
-//TODO delete
-int Listener::setMessageSocket()
-{
-    int messageSocket = accept(bsdSocket,(struct sockaddr *) 0,(socklen_t *) 0);
-    if (messageSocket < 0)
-    {
-        error("ERROR on accept");
-    }
-    return messageSocket;
-}
-
-//TODO delete
-void Listener::fetchMessage(int messageSocket)
-{
-    //TODO stala!
-    char buffer[BUFFER_SIZE];
-    bzero(buffer,BUFFER_SIZE);
-    int received;
-
-    std::stringstream message;
-
-    //TODO HACK
-    int error_code = 0;
-    socklen_t error_code_size = sizeof(error_code);
-    int val = getsockopt(messageSocket, SOL_SOCKET, SO_ERROR, &error_code, &error_code_size);
-    if (val != 0)
-        return;
-
-    do
-    {
-        if ( (received = read(messageSocket,buffer,BUFFER_SIZE)) < 0 )
-        {
-            error("ERROR reading from socket");
-        }
-        message.write(buffer,received);
-        //TODO better
-        //printf("Received: %d", received); //TODO timeout
-        if ( received > 0 && buffer[received-1] == '\0' ) break;
-    } while ( received != 0 );
-
-    //TODO HACK
-    if ( message.tellp() > 1 )
-    {
-        //printf( "tellp: %d ", message.tellp());
-        //printf("Added element\n");
-        passMessage(message.str());
-    }
-    return;
-}
-
 
 int Listener::getPort() const
 {
