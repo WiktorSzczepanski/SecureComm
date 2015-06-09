@@ -78,7 +78,7 @@ protected:
     void react(Komunikat &komunikat)
     {
         Komunikat *answer;
-        Printer::print("Otrzymałem: " + komunikat.toString());
+        //Printer::print("Otrzymałem: " + komunikat.toString());
         if ( komunikat.getId() != 0 )
         {
             return;
@@ -108,10 +108,13 @@ protected:
         {
             return std::unique_ptr<Komunikat>(new Idz());
         }
-        //if ( ch == 'U' )
-        else
+        if ( ch == 'U' )
         {
             return std::unique_ptr<Komunikat>(new Uszanowanie());
+        }
+        else
+        {
+            throw "Otrzymano smieci";
         }
         // throw
 

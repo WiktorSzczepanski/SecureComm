@@ -15,6 +15,8 @@
 #include "ConnectionError.h"
 #include "BQueue.h"
 
+#include <map>
+
 class Listener
 {
 public:
@@ -29,6 +31,7 @@ public:
 private:
     /* funkcjonalnosc pobierania wiadomosci */
     void fetchMessage();
+    void fetchMessage2();
     /* ustawienie gniazda komunikacji */
     int setMessageSocket();
     /* pobranie wiadomosci z gniazda */
@@ -40,6 +43,12 @@ private:
 private:
     /* gniazdo nasluchiwania */
     int bsdSocket;
+    //TODO cmnt new
+    static const int MAX_FDS = 10;
+    int socketTable[MAX_FDS];
+    int nfds;
+    std::map<int,std::stringstream*> msgStreams;
+
     /* port nasluchiwania */
     const int port;
     /* kolejka blokujaca na ktora odkladane sa przychodzace kompletne komunikaty */
@@ -54,6 +63,8 @@ private:
     {
         ConnectionError::error(msg);
     }
+    void concatenate(int socket, char *buffer, int length);
+    void forwardMessage(int socket);
 };
 
 #endif //SECURECOMM_LISTENER_H
