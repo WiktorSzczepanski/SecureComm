@@ -43,11 +43,13 @@ private:
 private:
     /* gniazdo nasluchiwania */
     int bsdSocket;
-    //TODO cmnt new
+    //TODO cmnt new fields
     static const int MAX_FDS = 10;
     int socketTable[MAX_FDS];
     int nfds;
     std::map<int,std::stringstream*> msgStreams;
+    /* zbior deskryptorow gniazd */
+    fd_set ready;
 
     /* port nasluchiwania */
     const int port;

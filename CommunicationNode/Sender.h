@@ -27,18 +27,18 @@ public:
     ~Sender();
     /* ustanowienie polaczenia */
     void setConnection(const std::string &hostName);
-    /* wyslanie komunikatu do adresata */
+    /* wyslanie komunikatu do adresata; @return: false jezeli nie mozna nawiazac polaczenia */
     bool sendKomunikat(const std::string &hostName, const Komunikat &komunikat);
     /* rozlaczenie polaczenia; @return: false - polaczenie nie bylo ustanowione */
     bool disconnect(const std::string &hostName);
 
 private:
-    /* sprawdzenie czy polaczenie zostalo nawiazane i czy nie zostalo zerwane */
-    bool isConnected(const std::string &hostName);
     /* rozlaczenie polaczenia */
     void disconnect(int bsdSocket);
     /* sprawdzenie czy polaczenie nie zostalo zerwane */
     bool checkConnection(int bsdSocket) const;
+
+    inline bool isRegistered(std::string host) { return sockets.count(host) == 1; }
 
 private:
     /* wielkosc bufora jednorazowo przesylanej porcji komunikatu */

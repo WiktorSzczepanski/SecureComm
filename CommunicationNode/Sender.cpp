@@ -9,9 +9,8 @@ void Sender::setConnection(const std::string &hostName)
 
     std::string message;
 
-    //TODO temp, do usuniecia przy przejsciu na wyjatki
-    int noAttempts = 5;
-    tryAgain:
+    //int noAttempts = 5;
+    //tryAgain:
 
     // blok socket : tworzenie gniazda
     bsdSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -38,12 +37,14 @@ void Sender::setConnection(const std::string &hostName)
     // blok connect : zestawienie polaczenia
     if (connect(bsdSocket,(struct sockaddr *) &address,sizeof(address)) < 0)
     {
+        /*
         if (--noAttempts > 0)
         {
             sleep(1);
             goto tryAgain;
         }
         error("ERROR connecting");
+         */
     }
 
     sockets[hostName] = bsdSocket;
@@ -53,33 +54,30 @@ void Sender::setConnection(const std::string &hostName)
 
 bool Sender::sendKomunikat(const std::string &hostName, const Komunikat &komunikat)
 {
-    int result;
     {
         std::unique_lock<std::mutex> lock(this->d_mutex);
-        int socket = getSocket(hostName);
-        result = sendKomunikat(socket, komunikat);
-        //disconnect();
-    }
-    if (result != 0)
-    {
-        //printf("ERROR writing to socket: %s\n", strerror(result));
-        return false;
+        try
+        {
+            int socket = getSocket(hostName);
+            sendKomunikat(socket, komunikat);
+        }
+        catch (ConnectionError &e)
+        {
+            disconnect(hostName);
+            printf("%s\n", e.what());
+            return false;
+        }
     }
     return true;
 }
 
 int Sender::getSocket(const std::string &hostName)
 {
-    if ( !isConnected(hostName) )
+    if ( !isRegistered(hostName) )
     {
         setConnection(hostName);
     }
     return sockets[hostName];
-}
-
-bool Sender::isConnected(const std::string &hostName)
-{
-    return sockets.count(hostName) == 1 && checkConnection(sockets[hostName]); //TODO delete redundancy
 }
 
 int Sender::sendKomunikat(int bsdSocket, const Komunikat &komunikat)
@@ -102,10 +100,12 @@ int Sender::sendKomunikat(int bsdSocket, const Komunikat &komunikat)
         {
             if ( (sent = send(bsdSocket,buffer,bufferLength,MSG_NOSIGNAL)) < 0 )
             {
+                /*
                 result = errno;
                 errno = 0;
                 return result;
-                //error("ERROR writing to socket");
+                 */
+                error("ERROR writing to socket");
             }
             buffer += sent;
             bufferLength -= sent;
@@ -127,12 +127,13 @@ bool Sender::checkConnection(int bsdSocket) const
     int error_code = 0;
     socklen_t error_code_size = sizeof(error_code);
     int val = getsockopt(bsdSocket, SOL_SOCKET, SO_ERROR, &error_code, &error_code_size);
+    printf("checkConnection:error_code:%d\n",error_code);
     return (val == 0);
 }
 
 bool Sender::disconnect(const std::string &hostName)
 {
-    bool result = isConnected(hostName);
+    bool result = isRegistered(hostName);
     if (result)
     {
         disconnect(sockets[hostName]);

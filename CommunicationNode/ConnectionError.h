@@ -2,19 +2,20 @@
 #define SECURECOMM_CONNECTIONERROR_H
 
 #include <cstdio>
-
+#include <stdexcept>
 /**
  * Klasa obslugi bledow;
- * docelowo jako rzucanie wyjatkow
  */
-class ConnectionError
+class ConnectionError : public std::runtime_error
 {
 public:
     static void error(const char *msg)
     {
-        perror(msg);
-        exit(1);
+        std::string errorMsg(msg);
+        errorMsg = errorMsg + ": " + strerror(errno);
+        throw ConnectionError(errorMsg);
     }
+    ConnectionError(const std::string& what) : std::runtime_error(what) {}
 };
 
 #endif //SECURECOMM_CONNECTIONERROR_H

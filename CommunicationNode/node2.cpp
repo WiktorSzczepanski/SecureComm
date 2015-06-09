@@ -17,7 +17,8 @@ int main()
         //printf("Mowie \"Czesc\"\n");
         Printer::print("Mowie \"Czesc\"");
         node1.sendMessage("localhost", Czesc());
-        sleep(distribution(generator));
+        //sleep(distribution(generator));
+        sleep(10);
         --i;
     }
 }

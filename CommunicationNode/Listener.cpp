@@ -47,7 +47,7 @@ void Listener::activityLoop()
     }
 }
 
-//TODO
+//TODO delete
 void Listener::fetchMessage()
 {
     //TODO to jest HACK
@@ -59,11 +59,6 @@ void Listener::fetchMessage()
 
 void Listener::fetchMessage2()
 {
-    //TODO pola klasy
-    static fd_set ready;
-    //bufory komunikatow
-    //static ;
-
     int nActive;
     int msgsock;
     int received;
@@ -99,7 +94,7 @@ void Listener::fetchMessage2()
         {
             error("accept");
         }
-        //update liczby obserwowanych gniazd
+        //update liczby deskryptorow
         nfds = std::max(nfds, msgsock + 1);
         // TODO sprawdzenie czy msgsock>MAX_FDS
         socketTable[msgsock] = msgsock;
@@ -107,6 +102,7 @@ void Listener::fetchMessage2()
         printf("accepted...\n");
     }
 
+    //TODO zamiast socketTable gniazda : std::set<int>
     for (int socket = 0; socket < MAX_FDS; socket++)
     {
         // assert: msgsock == socketTable[socket]
@@ -115,7 +111,7 @@ void Listener::fetchMessage2()
             memset(buffer, 0, sizeof(buffer));
             if ((received = recv(msgsock, buffer, BUFFER_SIZE, MSG_NOSIGNAL)) == -1)
             {
-                //TODO obsluga rozlaczenia?
+                //TODO miekka obsluga
                 error("reading stream message");
             }
             // rozlaczenie gniazda
@@ -159,6 +155,7 @@ void Listener::fetchMessage2()
                 //printf("Otrzymano fragment komunikatu.\n\t%s\n",msgStreams[socket]->str().c_str());
             }
         }
+        //printf("Nic do roboty.\n");
     }
 }
 
@@ -166,6 +163,7 @@ void Listener::forwardMessage(int socket)
 {
     std::stringstream *msgBuffer = msgStreams[socket];
     std::string komunikatStr = msgBuffer->str();
+    //TODO remove line
     printf("Podaje wiadomosc: %s\n", komunikatStr.c_str());
     msgStreams.erase(socket);
     delete msgBuffer;
@@ -181,6 +179,7 @@ void Listener::concatenate(int socket, char *buffer, int length)
     msgStreams[socket]->write(buffer,length);
 }
 
+//TODO delete
 int Listener::setMessageSocket()
 {
     int messageSocket = accept(bsdSocket,(struct sockaddr *) 0,(socklen_t *) 0);
@@ -191,7 +190,7 @@ int Listener::setMessageSocket()
     return messageSocket;
 }
 
-//TODO podaj message
+//TODO delete
 void Listener::fetchMessage(int messageSocket)
 {
     //TODO stala!
@@ -247,6 +246,7 @@ Listener::Listener(const int port, BQueue<std::string> &bQueue)
     //setup();
 }
 
+//TODO dodaj do forwardMessage
 void Listener::passMessage(std::string message)
 {
     bQueue.push(message);
