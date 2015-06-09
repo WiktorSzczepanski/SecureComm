@@ -1,20 +1,28 @@
 #pragma once
-//Ponizsze zaleznosci niepotrzebnie komplikuja, a nie sa uzywane w naglowku!
-//#include "Deklaracje.h"
-//#include "User.h"
 #include <string>
+#include "Deklaracje.h"
+//#include "../Serwer/Serwer/User.h"
 class Komunikat
 {
 private:
 	int id;
+	UserId idNadawcy;
 protected:
+	//settery
 	void setId(const int& newId);
 public:
 	//metoda do "serializacji" klasy do stringa.
 	//Musi byc zaimplementowana w kazdej klasie pochodnej
-	virtual std::string toString() const = 0;
+	virtual std::string toString() = 0;
+	
+	//settery
+	void setIdNadawcy(UserId newId);
+
+	//gettery
+	int getId() const;
+	UserId getIdNadawcy() const;
+
 	//konstruktory
 	Komunikat();
 	virtual ~Komunikat();
-	int getId();
 };

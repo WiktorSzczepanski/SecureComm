@@ -10,8 +10,9 @@ std::string FriendListRequest::toString()
 
 //konstruktory
 
-FriendListRequest::FriendListRequest()
+FriendListRequest::FriendListRequest(const UserId nadawca)
 {
+	this->setIdNadawcy(nadawca);
 	this->setId(FRIEND_LIST_REQUEST);
 }
 

@@ -29,8 +29,9 @@ void LoginRequest::setHaslo(const std::string &noweHaslo)
 }
 
 //konstruktory
-LoginRequest::LoginRequest(std::string nazwa, std::string haslo)
+LoginRequest::LoginRequest(const UserId nadawca, std::string nazwa, std::string haslo)
 {
+	this->setIdNadawcy(nadawca);
 	this->setId(LOGIN_REQUEST);
 	this->setNazwaUzytkownika(nazwa);
 	this->setHaslo(haslo);

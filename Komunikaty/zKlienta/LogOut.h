@@ -1,8 +1,8 @@
 #pragma once
-#include "Komunikat.h"
-class ZapytanieDostepnosc :
+#include "../Komunikat.h"
+class LogOut :
 	public Komunikat
-{
+{	
 	//idKomunikatu
 	//idKomunikatu - dziedziczone z "Komunikat"
 public:
@@ -10,7 +10,7 @@ public:
 	std::string toString() override;
 
 	//konstruktory
-	ZapytanieDostepnosc();
-	~ZapytanieDostepnosc();
+	LogOut(const UserId nadawca);
+	~LogOut();
 };
 

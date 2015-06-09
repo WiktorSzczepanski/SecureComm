@@ -22,7 +22,7 @@ public:
 
 	//konstruktory
 	Wiadomosc();
-	Wiadomosc(const UserId &idOdbiorcy, const std::string &content);
+	Wiadomosc(const UserId nadawca, const UserId &idOdbiorcy, const std::string &content);
 	~Wiadomosc();
 };
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Komunikat.h"
+#include "../Komunikat.h"
 class FriendListRequest :
 	public Komunikat
 {
@@ -10,7 +10,7 @@ public:
 	std::string toString() override;
 
 	//konstruktory
-	FriendListRequest();
+	FriendListRequest(const UserId nadawca);
 	~FriendListRequest();
 };
 

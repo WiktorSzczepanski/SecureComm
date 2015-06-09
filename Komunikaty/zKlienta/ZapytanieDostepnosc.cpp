@@ -9,8 +9,9 @@ std::string ZapytanieDostepnosc::toString()
 }
 
 //konstruktory
-ZapytanieDostepnosc::ZapytanieDostepnosc()
+ZapytanieDostepnosc::ZapytanieDostepnosc(const UserId nadawca)
 {
+	this->setIdNadawcy(nadawca);
 	this->setId(ZAPYTANIE_DOSTEPNOSC);
 }
 

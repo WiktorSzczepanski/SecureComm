@@ -36,8 +36,9 @@ Wiadomosc::Wiadomosc()
 	this->setId(WIADOMOSC);
 }
 
-Wiadomosc::Wiadomosc(const UserId &idOdbiorcy, const std::string &content)
+Wiadomosc::Wiadomosc(const UserId nadawca, const UserId &idOdbiorcy, const std::string &content)
 {
+	this->setIdNadawcy(nadawca);
 	this->setId(WIADOMOSC);
 	this->setIdOdbiorcy(idOdbiorcy);
 	this->setContent(content);
