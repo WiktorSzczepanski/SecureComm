@@ -11,3 +11,10 @@ Serwer/Debug/Serwer.ilk
 *.idb
 *.vcxproj
 *.filters
+**/*.swp
+**/*.app
+**/*.bin
+tmp/
+Klient/obj
+CMakeLists.txt
+.idea/
