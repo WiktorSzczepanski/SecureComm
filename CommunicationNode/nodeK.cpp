@@ -1,5 +1,5 @@
 #include "CommunicationNode.h"
-#include "TestNode.h"
+#include "TestNode2.h"
 #include <random>
 
 int main()
@@ -15,10 +15,10 @@ int main()
     while (i)
     {
         //printf("Mowie \"Czesc\"\n");
-        Printer::print("Mowie \"Czesc\"");
-        node1.sendMessage("localhost", Czesc());
-        sleep(distribution(generator));
-        //sleep(10);
+        //Printer::print("Mowie \"Czesc\"");
+        //node1.sendMessage("localhost", Czesc());
+        //sleep(distribution(generator));
+        sleep(1);
         //--i;
     }
 }

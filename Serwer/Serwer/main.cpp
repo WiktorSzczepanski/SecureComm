@@ -12,9 +12,38 @@ using std::cout;
 
 int main()
 {
-	cout << BazaDanych::getBazaDanych().getMaxId() << endl;
+	//cout << BazaDanych::getBazaDanych().getMaxId() << endl;
 	User user1 = BazaDanych::getBazaDanych().wyszukajPoId(0);
 	User user2 = BazaDanych::getBazaDanych().wyszukajPoId(1);
+	cout << "user1: " << user1.getId() << endl
+		<< user1.getNazwa() << endl
+		<< user1.getHaslo() << endl << endl;
+	cout << "user2: " << user2.getId() << endl
+		<< user2.getNazwa() << endl
+		<< user2.getHaslo() << endl << endl;
+
+	cout << "Liczba uzytkownikow: " << BazaDanych::getBazaDanych().getUserCount() << endl;
+	
+	cout << endl << "Dodanie nowego uzytkownika" << endl;
+	User user(1, "Marian", "haslo123");
+	BazaDanych::getBazaDanych().dodajUsera(user);
+
+	user1 = BazaDanych::getBazaDanych().wyszukajPoId(0);
+	user2 = BazaDanych::getBazaDanych().wyszukajPoId(1);
+	cout << "user1: " << user1.getId() << endl
+		<< user1.getNazwa() << endl
+		<< user1.getHaslo() << endl << endl;
+	cout << "user2: " << user2.getId() << endl
+		<< user2.getNazwa() << endl
+		<< user2.getHaslo() << endl << endl;
+
+	cout << "Liczba uzytkownikow: " << BazaDanych::getBazaDanych().getUserCount() << endl;
+		
+	cout << endl << "Usuniecie uzytkownika" << endl;
+	BazaDanych::getBazaDanych().usunUsera(1);
+
+	user1 = BazaDanych::getBazaDanych().wyszukajPoId(0);
+	user2 = BazaDanych::getBazaDanych().wyszukajPoId(1);
 	cout << "user1: " << user1.getId() << endl
 		<< user1.getNazwa() << endl
 		<< user1.getHaslo() << endl << endl;

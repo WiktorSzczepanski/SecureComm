@@ -14,7 +14,7 @@ public:
     /* Test przeslania bardzo dlugiego komunikatu */
     std::string toString() const
     {
-        return "Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc !!!!"
+        return "Czesc";// Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc Czesc !!!!"
                 ;
     }
     Czesc()
@@ -77,6 +77,7 @@ public:
 protected:
     void react(Komunikat &komunikat)
     {
+	bool success;
         Komunikat *answer;
         Printer::print("Otrzymałem: " + komunikat.toString());
         if ( komunikat.getId() != 0 )

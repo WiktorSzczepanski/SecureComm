@@ -13,7 +13,7 @@ protected:
 public:
 	//metoda do "serializacji" klasy do stringa.
 	//Musi byc zaimplementowana w kazdej klasie pochodnej
-	virtual std::string toString() = 0;
+	virtual std::string toString() const = 0;
 	
 	//settery
 	void setIdNadawcy(UserId newId);
