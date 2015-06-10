@@ -1,7 +1,7 @@
 #include "LogOut.h"
 
 //serializacja
-std::string LogOut::toString()
+std::string LogOut::toString() const
 {
 	std::string ramka;
 	ramka = std::to_string(this->getId());

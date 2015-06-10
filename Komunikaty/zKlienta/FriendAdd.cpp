@@ -1,7 +1,7 @@
 #include "FriendAdd.h"
 
 //serializacja
-std::string FriendAdd::toString()
+std::string FriendAdd::toString() const
 {
 	std::string ramka;
 	ramka = std::to_string(this->getId()) + '#' + std::to_string(this->getIdDodawanego());
@@ -9,7 +9,7 @@ std::string FriendAdd::toString()
 }
 
 //gettery
-UserId FriendAdd::getIdDodawanego()
+UserId FriendAdd::getIdDodawanego() const
 {
 	return this->idDodawanego;
 }

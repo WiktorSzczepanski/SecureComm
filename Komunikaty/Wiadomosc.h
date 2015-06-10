@@ -10,11 +10,11 @@ private:
 	std::string content;
 public:
 	//serializacja
-	std::string toString() override;
+	std::string toString() const override;
 
 	//gettery
-	UserId getIdOdbiorcy();
-	std::string getContent();
+	UserId getIdOdbiorcy() const;
+	std::string getContent() const;
 
 	//settery
 	void setIdOdbiorcy(const UserId &nowyOdbiorca);

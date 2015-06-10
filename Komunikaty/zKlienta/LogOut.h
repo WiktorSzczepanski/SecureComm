@@ -7,7 +7,7 @@ class LogOut :
 	//idKomunikatu - dziedziczone z "Komunikat"
 public:
 	//serializacja
-	std::string toString() override;
+	std::string toString() const override;
 
 	//konstruktory
 	LogOut(const UserId nadawca);

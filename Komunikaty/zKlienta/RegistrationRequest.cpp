@@ -1,7 +1,7 @@
 #include "RegistrationRequest.h"
 
 //serializacja
-std::string RegistrationRequest::toString()
+std::string RegistrationRequest::toString() const
 {
 	std::string ramka;
 	ramka = std::to_string(this->getId()) + '#' + this->getNazwaUzytkownika() + '#' + this->getHaslo();
@@ -9,12 +9,12 @@ std::string RegistrationRequest::toString()
 }
 
 //gettery
-std::string RegistrationRequest::getNazwaUzytkownika()
+std::string RegistrationRequest::getNazwaUzytkownika() const
 {
 	return this->nazwaUzytkownika;
 }
 
-std::string RegistrationRequest::getHaslo()
+std::string RegistrationRequest::getHaslo() const
 {
 	return this->haslo;
 }

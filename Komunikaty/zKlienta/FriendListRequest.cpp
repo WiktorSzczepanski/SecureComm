@@ -1,7 +1,7 @@
 #include "FriendListRequest.h"
 
 //serializacja
-std::string FriendListRequest::toString()
+std::string FriendListRequest::toString() const
 {
 	std::string ramka;
 	ramka = std::to_string(this->getId());

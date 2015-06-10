@@ -7,7 +7,7 @@ class FriendListRequest :
 	//idKomunikatu - dziedziczone z "Komunikat"
 public:
 	//serializacja
-	std::string toString() override;
+	std::string toString() const override;
 
 	//konstruktory
 	FriendListRequest(const UserId nadawca);
