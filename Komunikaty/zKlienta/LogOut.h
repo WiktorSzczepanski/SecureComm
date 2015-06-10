@@ -3,7 +3,7 @@
 class LogOut :
 	public Komunikat
 {	
-	//idKomunikatu
+	//idKomunikatu # idNadawcy 
 	//idKomunikatu - dziedziczone z "Komunikat"
 public:
 	//serializacja

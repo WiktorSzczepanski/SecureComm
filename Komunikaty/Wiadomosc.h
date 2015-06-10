@@ -3,7 +3,7 @@
 class Wiadomosc :
 	public Komunikat
 {
-	//idKomunikatu # idOdbiorcy # tresc
+	//idKomunikatu # idNadawcy # idOdbiorcy # tresc
 	//idKomunikatu - dziedziczone z "Komunikat"
 private:
 	UserId idOdbiorcy;

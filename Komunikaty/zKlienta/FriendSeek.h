@@ -3,7 +3,7 @@
 class FriendSeek :
 	public Komunikat
 {
-	//idKomunikatu # nazwaSzukanego
+	//idKomunikatu # idNadawcy # nazwaSzukanego
 	//idKomunikatu - dziedziczone z "Komunikat"
 private:
 	std::string nazwaSzukanego;

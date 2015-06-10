@@ -3,7 +3,7 @@
 class FriendAdd :
 	public Komunikat
 {
-	//idKomunikatu # idDodawanego
+	//idKomunikatu # idNadawcy # idDodawanego
 	//idKomunikatu - dziedziczone z "Komunikat"
 private:
 	UserId idDodawanego;

@@ -3,7 +3,7 @@
 class ZapytanieDostepnosc :
 	public Komunikat
 {
-	//idKomunikatu
+	//idKomunikatu # idNadawcy 
 	//idKomunikatu - dziedziczone z "Komunikat"
 public:
 	//serializacja

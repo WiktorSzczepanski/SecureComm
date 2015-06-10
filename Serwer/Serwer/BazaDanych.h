@@ -5,8 +5,8 @@
 #include <fstream>
 #include <algorithm>
 #include <iostream>
-typedef std::vector<User>::iterator UserIterator;
-typedef std::string::iterator StringIterator;
+// typedef std::string::iterator StringIterator; jest w Users.h
+// typedef std::vector<User>::iterator UserIterator; jest w User.h
 class BazaDanych
 {
 private:
@@ -20,6 +20,7 @@ private:
 	bool zapiszBaze(); // false gdy nie uda sie utworzys ofstreamu (np. problem z dostepem)
 	bool wczytajBaze(); // false jesli brak pliku, lub jesli plik pusty. Wysypie sie jesli niepusty i brak '3' lub ',' na koncu.
 	void inicjalizujBaze(); // tworzy zerowego uzytkownika id=0, nazwa=JohnDoe, haslo=haslo, data rejestracji=czas obecny
+	unsigned int aktualizujMaxId();
 public:
 	//singleton
 	static BazaDanych & getBazaDanych() // tym pobieramy instancje bazy. Wszelkie dzialaniana bazie maja postac typu: BazaDanych::getBazaDanych().metodaX();
@@ -41,6 +42,9 @@ public:
 	bool usunUsera(std::string nazwa); // jak wyzej, ale szukanie po zanwie. Uzytkownik o id=0 i nazwie JohnDoe nie moze byc usuniety
 	bool dodajUsera(User user); // dodaje uzytkownika czytajac dane z obiektu klasu User z User.h
 	bool dodajUsera(unsigned int id, std::string nazwa, std::string haslo); // dodaje uzytkownika, ale bezposrednio przyjmuje dane
+	bool dodajZnajomego(unsigned int komu, unsigned int kogo); // dodaje uzytkownikowi o id = komu do vektora przyjaciol uzytkownika o id = kogo
+	bool usunZnajomego(unsigned int komu, unsigned int kogo); // usuwa uzytkownikowi o id = komu z vektora przyjaciol uzytkownika o id = kogo
+	std::vector<unsigned int> dajListeZnajomych(unsigned int id); // zwraca kopie wekrora znajomych uzytkownika o podanym id
 private:
 	//konstruktory
 	BazaDanych(); //probuje wczytac baze, jesli sie nie uda inicjalizuje nowa.
