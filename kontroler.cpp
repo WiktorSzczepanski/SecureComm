@@ -25,14 +25,14 @@ void Kontroler::wypelnijMapeAkcji()
 	mapaAkcji.insert(pair<string,SecureCommAction*>("EkranPoprawnejAutoryzacji",new SecureCommAction()));
 	mapaAkcji.insert(pair<string,SecureCommAction*>("EkranWyboruZnajomegoBezposrednia",new WyborZnajomegoBezposredniaAction(model)));	
 	mapaAkcji.insert(pair<string,SecureCommAction*>("EkranKomunikacjiBezposredniej",new KomunikacjaBezposredniaAction(model)));
-	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatPoprawnegoLogowania",new SecureCommAction()));
-	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatNiepoprawnegoLogowania",new SecureCommAction()));
-	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatPoprawnejRejestracji",new SecureCommAction()));
-	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatNiepoprawnejRejestracji",new SecureCommAction()));
-	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatWiadomosciPosredniej",new SecureCommAction()));
-	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatListyZnajomych",new SecureCommAction()));
-	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatDodaniaZnajomego",new SecureCommAction()));
-	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatPoprawnegoWylogowania",new SecureCommAction()));
+	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatPoprawnegoLogowania",new PoprawneLogowanieAction(model)));
+	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatNiepoprawnegoLogowania",new NiepoprawneLogowanieAction(model)));
+	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatPoprawnejRejestracji",new PoprawnaRejestracjaAction(model)));
+	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatNiepoprawnejRejestracji",new NiepoprawnaRejestracjaAction(model)));
+	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatWiadomosciPosredniej",new WiadomoscPosredniaAction(model)));
+	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatListyZnajomych",new ListaZnajomychAction(model)));
+	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatDodaniaZnajomego",new PoprawneDodanieZnajomego(model)));
+	mapaAkcji.insert(pair<string,SecureCommAction*>("KomunikatPoprawnegoWylogowania",new PoprawneWylogowanie(model)));
 }
 
 void Kontroler::petlaAplikacji()
@@ -61,11 +61,14 @@ void Kontroler::petlaAplikacji()
 		else 
 		{	
 			SecureCommAction* akcja = it->second;
-			akcja->wykonajAkcje(ekran_pop);
+			odp = akcja->wykonajAkcje(ekran_pop,odp);
 		}
 		ekran = ekran_pop->przejdzDoWybranegoEkranu(odp);
 		
-		model->dodajZdarzenieDoKolejki(ekran->getNazwaKlasy());
+		if(ekran->getNazwaKlasy() != "EkranOczekiwaniaNaSerwer")
+		{
+			model->dodajZdarzenieDoKolejki(ekran->getNazwaKlasy());
+		}
 			
 		ekran_pop = ekran;
 		
