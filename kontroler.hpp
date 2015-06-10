@@ -17,9 +17,51 @@ class SecureCommAction
 	{
 		public:
 		SecureCommAction(){};
-		virtual void wykonajAkcje( Ekran* ekran){};
+		virtual int wykonajAkcje( Ekran* ekran, int odp)
+		{ 
+			return odp;
+		};
 		virtual ~SecureCommAction(){};
 	};
+	
+	class EkranPowitalnyAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		EkranPowitalnyAction(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			ekran->czyscEkran();
+			
+			return odp;
+		};
+		~EkranPowitalnyAction(){};
+	};
+	
+	class EkranLogowaniaAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		EkranLogowaniaAction(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			ekran->czyscEkran();
+			
+			return odp;
+		};
+		~EkranLogowaniaAction(){};
+	};
+	
+	
+	
 	
 	class RejestrowanieAction : public SecureCommAction
 	{
@@ -30,7 +72,7 @@ class SecureCommAction
 		{
 			this->model = model;
 		};
-		void wykonajAkcje( Ekran* ekran)
+		int wykonajAkcje( Ekran* ekran, int odp)
 		{
 			string login = ((EkranRejestracji*)ekran)->getLogin();
 			string haslo = ((EkranRejestracji*)ekran)->getHasloSciezka();
@@ -38,6 +80,11 @@ class SecureCommAction
 			ekran->wyswietlLinieTekstu("Czekaj na rejestracje.");
 			
 			model->wyslijKomunikatRejestracji(RegistrationRequest(login,haslo));
+			model->setLoginUzytkownika(((EkranRejestracji*)ekran)->getLogin());
+			ekran->czyscEkran();
+			
+			return odp;
+			
 		};
 		
 		~RejestrowanieAction(){};
@@ -46,7 +93,6 @@ class SecureCommAction
 	class AutoryzacjaHaslemAction : public SecureCommAction
 	{
 		Model *model;
-		//Ekran*ekran;
 		
 		public:
 		AutoryzacjaHaslemAction(Model *model)
@@ -54,7 +100,7 @@ class SecureCommAction
 			this->model = model;
 			
 		};
-		void wykonajAkcje(Ekran* ekran)
+		int wykonajAkcje(Ekran* ekran, int odp)
 		{
 			string login = ((EkranAutoryzacjiHaslem*)ekran)->getLogin();
 			string haslo = ((EkranAutoryzacjiHaslem*)ekran)->getHasloSciezka();
@@ -62,6 +108,12 @@ class SecureCommAction
 			ekran->wyswietlLinieTekstu("Czekaj na autoryzacje haslem.");
 			
 			model->wyslijKomunikatLogowania(LoginRequest(login,haslo));
+			model->setLoginUzytkownika(login);
+			
+			ekran->czyscEkran();
+			
+			return odp;
+			
 		};
 		
 		~AutoryzacjaHaslemAction()
@@ -71,6 +123,137 @@ class SecureCommAction
 		};
 	};
 	
+	class PoprawneLogowanieAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		PoprawneLogowanieAction(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			return 1;
+		};
+		~PoprawneLogowanieAction(){};
+	};
+	
+	class NiepoprawneLogowanieAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		NiepoprawneLogowanieAction(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			return 2;
+		};
+		~NiepoprawneLogowanieAction(){};
+	};
+	
+	class PoprawnaRejestracjaAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		PoprawnaRejestracjaAction(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			return 1;
+		};
+		~PoprawnaRejestracjaAction(){};
+	};
+	
+	class NiepoprawnaRejestracjaAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		NiepoprawnaRejestracjaAction(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			return 2;
+		};
+		~NiepoprawnaRejestracjaAction(){};
+	};
+	
+	class WiadomoscPosredniaAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		WiadomoscPosredniaAction(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			return odp;
+		};
+		~WiadomoscPosredniaAction(){};
+	};
+	
+	class ListaZnajomychAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		ListaZnajomychAction(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			//todo:: wyswietl komunikat oczekuj na enter
+			return odp;
+		};
+		~ListaZnajomychAction(){};
+	};
+	
+	class PoprawneDodanieZnajomego : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		PoprawneDodanieZnajomego(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			return 1;
+		};
+		~PoprawneDodanieZnajomego(){};
+	};
+	
+	class PoprawneWylogowanie : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		PoprawneWylogowanie(Model * model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje(Ekran* ekran, int odp)
+		{
+			return odp;
+		};
+		~PoprawneWylogowanie(){};
+	};
+	
+	
+	
 	class AutoryzacjaKluczemAction : public SecureCommAction
 	{
 		public:
@@ -78,21 +261,95 @@ class SecureCommAction
 		{
 		
 		};
-		void wykonajAkcje( Ekran* ekran){};
+		int wykonajAkcje( Ekran* ekran, int odp)
+		{
+			return odp;
+		};
 		
 		~AutoryzacjaKluczemAction(){};
 	};
 	
+	class WyborZnajomegoAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		WyborZnajomegoAction(Model *model)
+		{
+			this-> model = model;
+		}
+		int wykonajAkcje( Ekran * ekran, int odp)
+		{
+			model->dodajKomunikacjeZeZnajomym(((EkranWyboruZnajomego*)ekran)->getIdZnajomego());
+			model->setIdOdbiorcy(((EkranWyboruZnajomego*)ekran)->getIdZnajomego());
+			
+			return odp;
+		}
+		~WyborZnajomegoAction() {};
+	};
+	
+	class WyborZnajomegoBezposredniaAction : public SecureCommAction
+	{
+		Model * model;
+		
+		public:
+		WyborZnajomegoBezposredniaAction(Model *model)
+		{
+			this-> model = model;
+		}
+		int wykonajAkcje( Ekran * ekran, int odp)
+		{
+			model->dodajKomunikacjeBezposredniaZeZnajomym(((EkranWyboruZnajomegoBezposrednia*)ekran)->getAdresOdbiorcy());
+			model->setAdresOdbiorcy(((EkranWyboruZnajomegoBezposrednia*)ekran)->getAdresOdbiorcy());
+			model->utworzPolaczenieBezposrednie();
+			
+			return odp;
+		}
+		~WyborZnajomegoBezposredniaAction() {};
+	};
+	
 	class KomunikacjaAction : public SecureCommAction
 	{
-		public:
-		KomunikacjaAction()
-		{
+		Model *model;
 		
+		public:
+		KomunikacjaAction(Model* model)
+		{
+			this->model = model;
 		};
-		void wykonajAkcje( Ekran* ekran){};
+		int wykonajAkcje( Ekran* ekran, int odp)
+		{
+			((EkranKomunikacji*)ekran)->setLoginUzytkownika(model->getLoginUzytkownika());
+			((EkranKomunikacji*)ekran)->setLoginZnajomego(model->getIdOdbiorcy());
+			model->wyslijWiadomoscPosrednio(WiadomoscPosrednia(model->getIdOdbiorcy(),((EkranKomunikacji*)ekran)->getKomunikat()));
+			((EkranKomunikacji*)ekran)->setKomunikat("");
+			
+			return odp;
+		};
 		
 		~KomunikacjaAction(){};
+	};
+	
+	class KomunikacjaBezposredniaAction : public SecureCommAction
+	{
+		Model *model;
+		
+		public:
+		KomunikacjaBezposredniaAction(Model* model)
+		{
+			this->model = model;
+		};
+		int wykonajAkcje( Ekran* ekran,int odp)
+		{
+			((EkranKomunikacjiBezposredniej*)ekran)->setLoginUzytkownika(model->getLoginUzytkownika());
+			((EkranKomunikacjiBezposredniej*)ekran)->setLoginZnajomego(model->getIdOdbiorcy());
+			model->wyslijWiadomoscBezposrednio(WiadomoscPosrednia("",((EkranKomunikacjiBezposredniej*)ekran)->getKomunikat()));
+			((EkranKomunikacjiBezposredniej*)ekran)->setKomunikat("");
+			
+			return odp;
+		};
+		
+		~KomunikacjaBezposredniaAction(){};
 	};
 	
 	class DodanieZnajomegoAction : public SecureCommAction
@@ -104,11 +361,14 @@ class SecureCommAction
 		{
 			this->model = model;
 		};
-		void wykonajAkcje( Ekran* ekran)
+		int wykonajAkcje( Ekran* ekran, int odp)
 		{
 			string id = ((EkranDodawaniaKontaktu*)ekran)->getIdZnajomego();
 			
 			model->wyslijKomunikatDodaniaZnajomego(FriendAdd(id));
+			ekran->czyscEkran();
+			
+			return odp;
 		};
 		
 		~DodanieZnajomegoAction(){};
@@ -123,9 +383,12 @@ class SecureCommAction
 		{
 			this->model = model;
 		};
-		void wykonajAkcje( Ekran* ekran)
+		int wykonajAkcje( Ekran* ekran, int odp)
 		{
 			model->wyslijKomunikatWyswietlaniaZnajomych(FriendListRequest());
+			ekran->czyscEkran();
+			
+			return odp;
 		};
 		
 		~WyswietlenieZnajomychAction(){};
@@ -137,12 +400,12 @@ class Kontroler
 	private:
 	map<string, SecureCommAction*> mapaAkcji;
 	map<string, SecureCommAction*>::iterator it;
-	Ekran *ekran_pop;
-	Ekran *ekran;
+	
 	Model *model;
+	BQueue<string> *blockingQueue;
 	
 	public:
-	Kontroler();
+	Kontroler(BQueue<string> *blockingQueue, Model *model);
 	~Kontroler();
 	
 	void petlaAplikacji();
