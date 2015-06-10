@@ -1,7 +1,7 @@
 #include "Wiadomosc.h"
 
 //serializacja
-std::string Wiadomosc::toString()
+std::string Wiadomosc::toString() const
 {
 	std::string ramka;
 	ramka = std::to_string(this->getId()) + "#" + std::to_string(this->getIdOdbiorcy()) + "#" + this->getContent();
@@ -9,12 +9,12 @@ std::string Wiadomosc::toString()
 }
 
 //gettery
-UserId Wiadomosc::getIdOdbiorcy()
+UserId Wiadomosc::getIdOdbiorcy() const
 {
 	return this->idOdbiorcy;
 }
 
-std::string Wiadomosc::getContent()
+std::string Wiadomosc::getContent() const
 {
 	return this->content;
 }

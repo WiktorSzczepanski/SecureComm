@@ -9,10 +9,10 @@ private:
 	UserId idDodawanego;
 public:
 	//serializacja
-	std::string toString() override;
+	std::string toString() const override;
 
 	//gettery
-	UserId getIdDodawanego();
+	UserId getIdDodawanego() const;
 
 	//settery
 	void setIdDodawanego(const UserId &nowyDodawany);

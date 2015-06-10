@@ -1,7 +1,7 @@
 #include "LoginRequest.h"
 
 //serializacja
-std::string LoginRequest::toString()
+std::string LoginRequest::toString() const
 {
 	std::string ramka;
 	ramka = std::to_string(this->getId()) + '#' + this->getNazwaUzytkownika() + '#' + this->getHaslo();
@@ -9,11 +9,11 @@ std::string LoginRequest::toString()
 }
 
 //gettery
-std::string LoginRequest::getNazwaUzytkownika()
+std::string LoginRequest::getNazwaUzytkownika() const
 {
 	return this->nazwaUzytkownika;
 }
-std::string LoginRequest::getHaslo()
+std::string LoginRequest::getHaslo() const
 {
 	return this->haslo;
 }

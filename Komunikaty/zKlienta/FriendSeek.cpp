@@ -1,14 +1,14 @@
 #include "FriendSeek.h"
 
 //serializacja
-std::string FriendSeek::toString()
+std::string FriendSeek::toString() const
 {
 	std::string ramka;
 	ramka = std::to_string(this->getId()) + "#" + this->getNazwaSzukanego();
 	return ramka;
 }
 //gettery
-std::string FriendSeek::getNazwaSzukanego()
+std::string FriendSeek::getNazwaSzukanego() const
 {
 	return this->nazwaSzukanego;
 }

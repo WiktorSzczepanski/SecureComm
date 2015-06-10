@@ -1,7 +1,7 @@
 #include "ZapytanieDostepnosc.h"
 
 //serializacja
-std::string ZapytanieDostepnosc::toString()
+std::string ZapytanieDostepnosc::toString() const
 {
 	std::string ramka;
 	ramka = std::to_string(this->getId());

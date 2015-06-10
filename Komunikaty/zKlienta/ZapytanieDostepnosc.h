@@ -7,7 +7,7 @@ class ZapytanieDostepnosc :
 	//idKomunikatu - dziedziczone z "Komunikat"
 public:
 	//serializacja
-	std::string toString() override;
+	std::string toString() const override;
 
 	//konstruktory
 	ZapytanieDostepnosc(const UserId nadawca);

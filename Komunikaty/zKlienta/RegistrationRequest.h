@@ -13,11 +13,11 @@ private:
 	std::string haslo; //@TODO moze nie string i plain text?
 public:
 	//serializacja
-	std::string toString() override;
+	std::string toString() const override;
 
 	//gettery
-	std::string getNazwaUzytkownika();
-	std::string getHaslo();
+	std::string getNazwaUzytkownika() const;
+	std::string getHaslo() const;
 
 	//settery
 	void setNazwaUzytkownika(const std::string &nowaNazwa);
