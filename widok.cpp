@@ -46,10 +46,14 @@ list<string> Ekran::zwrocListeKomunikatow()
 {
 	return lista;
 }
+// Czysci liste komunikatow:
+void Ekran::czyscListeKomunikatow()
+{
+	lista.clear();
+}
 // Oczekuje na odpowiedź użytkownika:
 int Ekran::oczekujNaOdpowiedz()
 {
-	cout << "to robie ale chce nadpisac metode!"<<endl;
 	return 0;
 }
 // Przechodzi do wybranego ekranu:
@@ -104,13 +108,33 @@ int EkranAutoryzacji::oczekujNaOdpowiedz()
 	cin>>login;
 	wyswietlLinieTekstu(komunikatHasloSciezka);
 	cin>>hasloSciezka;
+	/*std::string hasloSciezka;
+    char ch;
+
+    while((ch = _getch()) != 13)
+    {
+    	hasloSciezka += ch;
+    	std::cout << '*';
+    }*/
 	
 	return 0;
 }
 
 Ekran* EkranAutoryzacji::przejdzDoWybranegoEkranu(int i)
-{
-	Ekran* ekran = new EkranPoprawnejAutoryzacji();
+{	
+	Ekran *ekran = new Ekran();
+	EkranPoprawnejAutoryzacji *ePop = new EkranPoprawnejAutoryzacji();
+	EkranPowitalny *ePow = new EkranPowitalny();
+	
+	switch(i)
+	{
+		case 0: ekran = ePop;
+				break;
+		case 1: ekran = ePow;
+				break;
+		default: cout << "JAKIS BLAD"<<endl;
+				break;
+	}
 	
 	return ekran;
 }
@@ -141,23 +165,23 @@ EkranLogowania::EkranLogowania()
 	setNazwaKlasy("EkranLogowania");
 	dodajLinieTekstu("Wybierz sposób logowania:");
 	dodajOpcje("Przy pomocy hasła");
-	dodajOpcje("Przy pomocy klucza");
+	/*dodajOpcje("Przy pomocy klucza");*/
 	dodajOpcje("Powrót");
 }
 Ekran* EkranLogowania::przejdzDoWybranegoEkranu(int i)
 {
 	Ekran *ekran = new Ekran();
 	EkranAutoryzacjiHaslem *eAH = new EkranAutoryzacjiHaslem();
-	EkranAutoryzacjiKluczem *eAK = new EkranAutoryzacjiKluczem();
+/*	EkranAutoryzacjiKluczem *eAK = new EkranAutoryzacjiKluczem();*/
 	EkranPowitalny *ePow = new EkranPowitalny();
 	
 	switch(i)
 	{
 		case 1: ekran = eAH;
 				break;
-		case 2: ekran = eAK;
-				break;
-		case 3: ekran = ePow;
+	/*	case 2: ekran = eAK;
+				break;*/
+		case 2: ekran = ePow;
 				break;
 		default: cout << "JAKIS BLAD"<<endl;
 				break;
@@ -211,15 +235,15 @@ Ekran* EkranPoprawnejAutoryzacji::przejdzDoWybranegoEkranu(int i)
 {
 	Ekran *ekran = new Ekran();
 	EkranLogowania *eLog = new EkranLogowania();
-	EkranPowrotu *ePowr = new EkranPowrotu();
-	EkranKomunikacji *eKom = new EkranKomunikacji();
+	EkranWyboruZnajomego *eWybZ = new EkranWyboruZnajomego();
+	EkranWyboruZnajomegoBezposrednia *eWyZB = new EkranWyboruZnajomegoBezposrednia();
 	EkranDodawaniaKontaktu *eDKon = new EkranDodawaniaKontaktu();
 	EkranWyswietlaniaListyUzytkownikow *eWLU = new EkranWyswietlaniaListyUzytkownikow();
 	
 	
 	switch(i)
 	{
-		case 1: ekran = ePowr;
+		case 1: ekran = eWyZB;
 				break;
 		case 2: ekran = eDKon;
 				break;
@@ -227,7 +251,7 @@ Ekran* EkranPoprawnejAutoryzacji::przejdzDoWybranegoEkranu(int i)
 				break;
 		case 4: ekran = eLog;
 				break;
-		case 5: ekran = eKom;
+		case 5: ekran = eWybZ;
 				break;
 		case 6: exit(EXIT_SUCCESS);
 				break;
@@ -288,20 +312,26 @@ Ekran* EkranRejestracji::przejdzDoWybranegoEkranu(int i)
 /* *********************************************************** */
 EkranKomunikacji::EkranKomunikacji()
 {
+	czyscListeKomunikatow();
 	setNazwaKlasy("EkranKomunikacji");
 }
 int EkranKomunikacji::oczekujNaOdpowiedz()
 {
-	string tekst;
-	wyswietlLinieTekstu("ROZMOWA:");
-	cin>>komunikat;//tekst;
-//	while(!tekst.empty())
-//	{
-//		cin>>tekst;
-		
-	//}
+	string tekst = "";
+	cout<<loginUzytkownika<<"> ";
+	char ch;
+	while ((ch = cin.get()) != 27 && ch != '\n') 
+	{
+		komunikat += ch;
+	}
 	
-	return 0;
+	if(ch == 27)
+	{
+		czyscEkran();
+		return 2;
+	}
+	
+	return 1;
 }
 string EkranKomunikacji::getKomunikat()
 {
@@ -309,8 +339,126 @@ string EkranKomunikacji::getKomunikat()
 }
 void EkranKomunikacji::setKomunikat(string komunikat)
 {
-	
+	this->komunikat = komunikat;
 }
+
+void EkranKomunikacji::setLoginZnajomego(string login)
+{
+	loginZnajomego = login;
+}
+string EkranKomunikacji::getLoginZnajomego()
+{
+	return loginZnajomego;
+}
+void EkranKomunikacji::setLoginUzytkownika(string login)
+{
+	loginUzytkownika = login;
+}
+string EkranKomunikacji::getLoginUzytkownika()
+{
+	return loginUzytkownika;
+}
+
+Ekran* EkranKomunikacji::przejdzDoWybranegoEkranu(int i)
+{
+	Ekran *ekran = new Ekran();
+	EkranPoprawnejAutoryzacji *ePopA = new EkranPoprawnejAutoryzacji();
+	
+	switch(i)
+	{
+		case 1: ekran = this;
+				break;
+		case 2: ekran = ePopA;
+				break;
+		default: cout << "JAKIS BLAD"<<endl;
+				break;
+	}
+	
+	return ekran;
+}
+/* *********************************************************** */
+
+EkranKomunikacjiBezposredniej::EkranKomunikacjiBezposredniej()
+{
+	setNazwaKlasy("EkranKomunikacjiBezposredniej");
+}
+void EkranKomunikacjiBezposredniej::setAdresOdbiorcy(string adres)
+{
+	adresOdbiorcy = adres;
+}
+string EkranKomunikacjiBezposredniej::getAdresOdbiorcy()
+{
+	return adresOdbiorcy;
+}
+EkranKomunikacjiBezposredniej::~EkranKomunikacjiBezposredniej()
+{
+}
+
+/* *********************************************************** */
+EkranWyboruZnajomego::EkranWyboruZnajomego()
+{
+	setNazwaKlasy("EkranWyboruZnajomego");
+	dodajLinieTekstu("Podaj id znajomego");
+}
+int EkranWyboruZnajomego::oczekujNaOdpowiedz()
+{
+	cin>>idZnajomego;
+}
+Ekran* EkranWyboruZnajomego::przejdzDoWybranegoEkranu(int i)
+{
+	Ekran *ekran = new EkranKomunikacji();
+	return ekran;
+}
+string EkranWyboruZnajomego::getIdZnajomego()
+{
+	return idZnajomego;
+}
+string EkranWyboruZnajomego::getLoginZnajomego()
+{
+	return loginZnajomego;
+}
+void EkranWyboruZnajomego::setIdZnajomego(string idZnajomego)
+{
+	this->idZnajomego = idZnajomego;
+}
+void EkranWyboruZnajomego::setLoginZnajomego(string loginZnajomego)
+{
+	this->loginZnajomego = loginZnajomego;
+}
+EkranWyboruZnajomego::~EkranWyboruZnajomego(){};
+
+/* *********************************************************** */
+EkranWyboruZnajomegoBezposrednia::EkranWyboruZnajomegoBezposrednia()
+{
+	setNazwaKlasy("EkranWyboruZnajomegoBezposrednia");
+	dodajLinieTekstu("Podaj adres znajomego");
+}
+int EkranWyboruZnajomegoBezposrednia::oczekujNaOdpowiedz()
+{
+	cin>>adresOdbiorcy;
+}
+Ekran* EkranWyboruZnajomegoBezposrednia::przejdzDoWybranegoEkranu(int i)
+{
+	Ekran *ekran = new EkranKomunikacjiBezposredniej();
+	return ekran;
+}
+string EkranWyboruZnajomegoBezposrednia::getAdresOdbiorcy()
+{
+	return adresOdbiorcy;
+}
+string EkranWyboruZnajomegoBezposrednia::getLoginZnajomego()
+{
+	return loginZnajomego;
+}
+void EkranWyboruZnajomegoBezposrednia::setAdresOdbiorcy(string adresOdbiorcy)
+{
+	this->adresOdbiorcy = adresOdbiorcy;
+}
+void EkranWyboruZnajomegoBezposrednia::setLoginZnajomego(string loginZnajomego)
+{
+	this->loginZnajomego = loginZnajomego;
+}
+EkranWyboruZnajomegoBezposrednia::~EkranWyboruZnajomegoBezposrednia(){};
 /* *********************************************************** */
 EkranDodawaniaKontaktu::EkranDodawaniaKontaktu()
 {
@@ -357,6 +505,35 @@ Ekran* EkranWyswietlaniaListyUzytkownikow::przejdzDoWybranegoEkranu(int i)
 }
 EkranWyswietlaniaListyUzytkownikow::~EkranWyswietlaniaListyUzytkownikow(){}
 
+/* ********************************************************** */
+EkranOczekiwaniaNaSerwer::EkranOczekiwaniaNaSerwer()
+{
+	setNazwaKlasy("EkranOczekiwaniaNaSerwer");
+	czyscListeKomunikatow();
+}
+Ekran* EkranOczekiwaniaNaSerwer::przejdzDoWybranegoEkranu(int i)
+{
+	Ekran *ekran = new Ekran();
+	EkranPoprawnejAutoryzacji *ePop = new EkranPoprawnejAutoryzacji();
+	EkranPowitalny *ePow = new EkranPowitalny();
+	
+	switch(i)
+	{
+		case 0: ekran = this;
+				break;
+		case 1: ekran = ePop;
+				break;
+		case 2: ekran = ePow;
+				break;
+		default: cout << "JAKIS BLAD"<<endl;
+				break;
+	}
+	
+	return ekran;
+}
+EkranOczekiwaniaNaSerwer::~EkranOczekiwaniaNaSerwer()
+{
+}
 /* ********************************************************** */
 EkranPowrotu::EkranPowrotu()
 {
