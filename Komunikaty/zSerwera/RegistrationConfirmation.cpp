@@ -42,6 +42,17 @@ std::string RegistrationConfirmation::getHaslo() const
 // konstruktory
 RegistrationConfirmation::RegistrationConfirmation(const UserId userId, std::string nazwa, std::string haslo)
 {
+	this->setId(REGISTRATION_CONFIRMATION);
+	this->setIdNadawcy(userId);
+	this->setNazwaUzytkownika(nazwa);
+	this->setHaslo(haslo);
+}
+RegistrationConfirmation::RegistrationConfirmation(const RegistrationConfirmation &komunikat)
+{
+	this->setId(REGISTRATION_CONFIRMATION);
+	this->setIdNadawcy(komunikat.getUserId());
+	this->setNazwaUzytkownika(komunikat.getNazwaUzytkownika());
+	this->setHaslo(komunikat.getHaslo());
 }
 
 RegistrationConfirmation::~RegistrationConfirmation()

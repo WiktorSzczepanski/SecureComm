@@ -25,6 +25,7 @@ public:
 
 	// konstruktory
 	RegistrationConfirmation(const UserId userId, std::string nazwa, std::string haslo);
+	RegistrationConfirmation(const RegistrationConfirmation &);
 	~RegistrationConfirmation();
 };
 

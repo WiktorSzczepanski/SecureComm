@@ -37,7 +37,12 @@ RegistrationRequest::RegistrationRequest(std::string nazwa, std::string haslo)
 	this->setNazwaUzytkownika(nazwa);
 	this->setHaslo(haslo);
 }
-
+RegistrationRequest::RegistrationRequest(const RegistrationRequest &komunikat)
+{
+	this->setId(REGISTRATION_REQUEST);
+	this->setNazwaUzytkownika(komunikat.getNazwaUzytkownika());
+	this->setHaslo(komunikat.getHaslo());
+}
 
 RegistrationRequest::~RegistrationRequest()
 {

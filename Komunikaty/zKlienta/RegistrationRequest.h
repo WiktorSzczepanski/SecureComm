@@ -25,6 +25,7 @@ public:
 
 	//konstruktory
 	RegistrationRequest(std::string nazwa, std::string haslo);
+	RegistrationRequest(const RegistrationRequest &);
 	~RegistrationRequest();
 };
 

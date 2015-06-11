@@ -19,5 +19,6 @@ public:
 
 	//konstruktory
 	FriendAdd(const UserId nadawca, const UserId &nowyDodawany);
+	FriendAdd(const FriendAdd &);
 	~FriendAdd();
 };

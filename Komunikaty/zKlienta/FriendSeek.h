@@ -10,12 +10,16 @@ private:
 public:
 	//serializacja
 	std::string toString() const override;
+	
 	//gettery
 	std::string getNazwaSzukanego() const;
+	
 	//settery
-	void setNazwaSzukanego(const UserId nadawca, const std::string &nowySzukany);
+	void setNazwaSzukanego(const std::string nowySzukany);
+	
 	//konstruktory
-	FriendSeek();
+	FriendSeek(const UserId nadawca, const std::string nowySzukany);
+	FriendSeek(const FriendSeek &);
 	~FriendSeek();
 };
 

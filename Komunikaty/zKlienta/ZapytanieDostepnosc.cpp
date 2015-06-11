@@ -11,10 +11,14 @@ std::string ZapytanieDostepnosc::toString() const
 //konstruktory
 ZapytanieDostepnosc::ZapytanieDostepnosc(const UserId nadawca)
 {
-	this->setIdNadawcy(nadawca);
 	this->setId(ZAPYTANIE_DOSTEPNOSC);
+	this->setIdNadawcy(nadawca);
 }
-
+ZapytanieDostepnosc::ZapytanieDostepnosc(const ZapytanieDostepnosc &komunikat)
+{
+	this->setId(ZAPYTANIE_DOSTEPNOSC);
+	this->setIdNadawcy(komunikat.getIdNadawcy());
+}
 
 ZapytanieDostepnosc::~ZapytanieDostepnosc()
 {

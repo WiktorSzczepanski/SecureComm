@@ -14,18 +14,24 @@ std::string FriendSeek::getNazwaSzukanego() const
 }
 
 //settery
-void FriendSeek::setNazwaSzukanego(const UserId nadawca, const std::string &nowySzukany)
+void FriendSeek::setNazwaSzukanego(const std::string nowySzukany)
 {
-	this->setIdNadawcy(nadawca);
 	this->nazwaSzukanego = nowySzukany;
 }
 
 //konstruktory
-FriendSeek::FriendSeek()
+FriendSeek::FriendSeek(const UserId nadawca, const std::string nowySzukany)
 {
 	this->setId(FRIEND_SEEK);
+	this->setIdNadawcy(nadawca);
+	this->setNazwaSzukanego(nowySzukany);
 }
-
+FriendSeek::FriendSeek(const FriendSeek &komunikat)
+{
+	this->setId(FRIEND_SEEK);
+	this->setIdNadawcy(komunikat.getIdNadawcy());
+	this->setNazwaSzukanego(komunikat.getNazwaSzukanego());
+}
 
 FriendSeek::~FriendSeek()
 {

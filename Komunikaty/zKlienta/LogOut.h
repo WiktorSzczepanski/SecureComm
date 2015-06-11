@@ -11,6 +11,7 @@ public:
 
 	//konstruktory
 	LogOut(const UserId nadawca);
+	LogOut(const LogOut &);
 	~LogOut();
 };
 

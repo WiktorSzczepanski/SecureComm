@@ -11,6 +11,7 @@ public:
 
 	//konstruktory
 	FriendListRequest(const UserId nadawca);
+	FriendListRequest(const FriendListRequest &);
 	~FriendListRequest();
 };
 

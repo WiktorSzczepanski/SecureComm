@@ -27,7 +27,12 @@ FriendAdd::FriendAdd(const UserId nadawca, const UserId &nowyDodawany)
 	this->setIdNadawcy(nadawca);
 	this->setIdDodawanego(nowyDodawany);
 }
-
+FriendAdd::FriendAdd(const FriendAdd &komunikat)
+{
+	this->setId(FRIEND_ADD);
+	this->setIdNadawcy(komunikat.getIdNadawcy());
+	this->setIdDodawanego(komunikat.getIdDodawanego());
+}
 
 FriendAdd::~FriendAdd()
 {

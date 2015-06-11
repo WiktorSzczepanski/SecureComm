@@ -11,6 +11,7 @@ public:
 
 	//konstruktory
 	ZapytanieDostepnosc(const UserId nadawca);
+	ZapytanieDostepnosc(const ZapytanieDostepnosc &);
 	~ZapytanieDostepnosc();
 };
 

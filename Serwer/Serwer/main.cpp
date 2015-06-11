@@ -23,6 +23,7 @@ int main()
 
 	BazaDanych::getBazaDanych().dodajZnajomego(1, 2);
 	cout << BazaDanych::getBazaDanych().wyszukajPoId((*BazaDanych::getBazaDanych().wyszukajPoId(2).getZnajomi().begin())).toDbString() << endl;
+	//BazaDanych::getBazaDanych().dajListeZnajomych(2).begin()
 
 	// usuwam i sprawdza, maxId
 	BazaDanych::getBazaDanych().usunUsera(2);

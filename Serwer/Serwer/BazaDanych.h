@@ -40,6 +40,7 @@ public:
 	User wyszukajPoNazwie(std::string nazwa); //gdy nie ma zwraca Usera "JohnDoe" o id=0
 	bool usunUsera(unsigned int id); // usuwa usera o podanym id. Zwraca true, gdy sukces. Zwraca falsz, gdy nie znajdzie lub gdy proba usuniecia usera o id=0;
 	bool usunUsera(std::string nazwa); // jak wyzej, ale szukanie po zanwie. Uzytkownik o id=0 i nazwie JohnDoe nie moze byc usuniety
+	// @TODO dodawanie usera bez podanego id. Baza sama przydzieli
 	bool dodajUsera(User user); // dodaje uzytkownika czytajac dane z obiektu klasu User z User.h
 	bool dodajUsera(unsigned int id, std::string nazwa, std::string haslo); // dodaje uzytkownika, ale bezposrednio przyjmuje dane
 	bool dodajZnajomego(unsigned int komu, unsigned int kogo); // dodaje uzytkownikowi o id = komu do vektora przyjaciol uzytkownika o id = kogo
