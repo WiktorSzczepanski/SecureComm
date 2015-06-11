@@ -1,5 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #pragma once
+#include "Parser.h"
 #include "User.h"
 #include <vector>
 #include <fstream>

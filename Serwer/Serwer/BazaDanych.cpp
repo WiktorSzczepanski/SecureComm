@@ -28,67 +28,17 @@ bool BazaDanych::zapiszBaze()
 	return true;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////
-class Przedzial
-{
-public:
-	//pierwszy znak elementu
-	std::string::iterator poczatek;
-	//pozycja separatora ',' lub '#'
-	std::string::iterator koniec;
-};
-void sprawdzCzyNiePusty(std::string &wejsciowy)
-{
-	try
-	{
-		if (wejsciowy.empty())	throw 1;
-	}
-	catch (...)
-	{
-		std::cout << "Wczytywanie nieudane. Nieoczekiwany koniec pliku.";
-		exit(1);
-	}
-}
-StringIterator znajdzSeparator(std::string &wejsciowy, const char separator)
-{
-	StringIterator it = wejsciowy.begin();
-	while (*it != separator)
-	{
-		if (++it == wejsciowy.end())	break;
-	}
-	return it;
-}
-std::string pierwszyWyraz(std::string &wejsciowy, const char separator)
-{
-	sprawdzCzyNiePusty(wejsciowy);
-	Przedzial przedzial;
-	przedzial.poczatek = wejsciowy.begin();
-	przedzial.koniec = znajdzSeparator(wejsciowy, separator);
-
-	/*
-	if (przedzial.poczatek == przedzial.koniec)
-	{
-		wejsciowy.erase(wejsciowy.begin());
-		przedzial.poczatek = wejsciowy.begin();
-		przedzial.koniec = znajdzSeparator(wejsciowy);
-	}
-	//*/
-
-	std::string wynik = std::string(przedzial.poczatek, przedzial.koniec);
-	wejsciowy.erase(przedzial.poczatek, przedzial.koniec+1); // tu sie wysypie, jesli napotka niespodziewany koniec pliku z zapisem bazy. Musi byc '#' na koncu. Powyzej mozna by wstawic try-catch.
-
-	return wynik;
-}
 bool pierwszyUser(std::string &wejsciowy, User &wynik)
 {
 	if (wejsciowy.empty())	return false;
 	
-	std::string id = pierwszyWyraz(wejsciowy, ',');
-	std::string nazwa = pierwszyWyraz(wejsciowy, ',');
-	std::string haslo = pierwszyWyraz(wejsciowy, ',');
-	std::string rok = pierwszyWyraz(wejsciowy, ',');
-	std::string miesiac = pierwszyWyraz(wejsciowy, ',');
-	std::string dzien = pierwszyWyraz(wejsciowy, ',');
-	std::string znajomi = pierwszyWyraz(wejsciowy, '#');
+	std::string id = Parser::pierwszyWyraz(wejsciowy, ',');
+	std::string nazwa = Parser::pierwszyWyraz(wejsciowy, ',');
+	std::string haslo = Parser::pierwszyWyraz(wejsciowy, ',');
+	std::string rok = Parser::pierwszyWyraz(wejsciowy, ',');
+	std::string miesiac = Parser::pierwszyWyraz(wejsciowy, ',');
+	std::string dzien = Parser::pierwszyWyraz(wejsciowy, ',');
+	std::string znajomi = Parser::pierwszyWyraz(wejsciowy, '#');
 
 	wynik = User(id, nazwa, haslo, rok, miesiac, dzien, znajomi);
 	return true;
