@@ -3,7 +3,7 @@
 class LogOut :
 	public Komunikat
 {	
-	//idKomunikatu
+	//idKomunikatu # idNadawcy 
 	//idKomunikatu - dziedziczone z "Komunikat"
 public:
 	//serializacja
@@ -11,6 +11,7 @@ public:
 
 	//konstruktory
 	LogOut(const UserId nadawca);
+	LogOut(const LogOut &);
 	~LogOut();
 };
 

@@ -35,15 +35,20 @@ Wiadomosc::Wiadomosc()
 {
 	this->setId(WIADOMOSC);
 }
-
+Wiadomosc::Wiadomosc(const Wiadomosc &komunikat)
+{
+	this->setId(WIADOMOSC);
+	this->setIdNadawcy(komunikat.getIdNadawcy());
+	this->setIdOdbiorcy(komunikat.getIdOdbiorcy());
+	this->setContent(komunikat.getContent());
+}
 Wiadomosc::Wiadomosc(const UserId nadawca, const UserId &idOdbiorcy, const std::string &content)
 {
-	this->setIdNadawcy(nadawca);
 	this->setId(WIADOMOSC);
+	this->setIdNadawcy(nadawca);
 	this->setIdOdbiorcy(idOdbiorcy);
 	this->setContent(content);
 }
-
 
 Wiadomosc::~Wiadomosc()
 {

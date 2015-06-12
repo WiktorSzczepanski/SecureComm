@@ -11,10 +11,14 @@ std::string LogOut::toString() const
 //konstruktory
 LogOut::LogOut(const UserId nadawca)
 {
-	this->setIdNadawcy(nadawca);
 	this->setId(LOGOUT);
+	this->setIdNadawcy(nadawca);
 }
-
+LogOut::LogOut(const LogOut &komunikat)
+{
+	this->setId(LOGOUT);
+	this->setIdNadawcy(komunikat.getIdNadawcy());
+}
 
 LogOut::~LogOut()
 {

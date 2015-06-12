@@ -3,7 +3,7 @@
 class Wiadomosc :
 	public Komunikat
 {
-	//idKomunikatu # idOdbiorcy # tresc
+	//idKomunikatu # idNadawcy # idOdbiorcy # tresc
 	//idKomunikatu - dziedziczone z "Komunikat"
 private:
 	UserId idOdbiorcy;
@@ -22,6 +22,7 @@ public:
 
 	//konstruktory
 	Wiadomosc();
+	Wiadomosc(const Wiadomosc &);
 	Wiadomosc(const UserId nadawca, const UserId &idOdbiorcy, const std::string &content);
 	~Wiadomosc();
 };

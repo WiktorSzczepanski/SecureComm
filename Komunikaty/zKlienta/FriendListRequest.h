@@ -3,7 +3,7 @@
 class FriendListRequest :
 	public Komunikat
 {
-	//idKomunikatu
+	//idKomunikatu # idNadawcy
 	//idKomunikatu - dziedziczone z "Komunikat"
 public:
 	//serializacja
@@ -11,6 +11,7 @@ public:
 
 	//konstruktory
 	FriendListRequest(const UserId nadawca);
+	FriendListRequest(const FriendListRequest &);
 	~FriendListRequest();
 };
 

@@ -22,5 +22,6 @@ public:
 
 	//konstruktory
 	LoginRequest(const UserId nadawca, std::string nazwa, std::string haslo);
+	LoginRequest(const LoginRequest &);
 	~LoginRequest();
 };

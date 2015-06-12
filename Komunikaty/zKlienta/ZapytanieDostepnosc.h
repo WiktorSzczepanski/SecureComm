@@ -3,7 +3,7 @@
 class ZapytanieDostepnosc :
 	public Komunikat
 {
-	//idKomunikatu
+	//idKomunikatu # idNadawcy 
 	//idKomunikatu - dziedziczone z "Komunikat"
 public:
 	//serializacja
@@ -11,6 +11,7 @@ public:
 
 	//konstruktory
 	ZapytanieDostepnosc(const UserId nadawca);
+	ZapytanieDostepnosc(const ZapytanieDostepnosc &);
 	~ZapytanieDostepnosc();
 };
 

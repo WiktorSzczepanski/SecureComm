@@ -24,7 +24,9 @@ public:
 	void setHaslo(const std::string &noweHaslo);
 
 	//konstruktory
+	RegistrationRequest(std::string komunikat);
 	RegistrationRequest(std::string nazwa, std::string haslo);
+	RegistrationRequest(const RegistrationRequest &);
 	~RegistrationRequest();
 };
 

@@ -15,7 +15,11 @@ FriendListRequest::FriendListRequest(const UserId nadawca)
 	this->setIdNadawcy(nadawca);
 	this->setId(FRIEND_LIST_REQUEST);
 }
-
+FriendListRequest::FriendListRequest(const FriendListRequest &komunikat)
+{
+	this->setId(FRIEND_LIST_REQUEST);
+	this->setIdNadawcy(komunikat.getIdNadawcy());
+}
 
 FriendListRequest::~FriendListRequest()
 {

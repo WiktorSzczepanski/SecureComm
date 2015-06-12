@@ -31,13 +31,28 @@ void RegistrationRequest::setHaslo(const std::string &noweHaslo)
 }
 
 //konstruktory
+RegistrationRequest::RegistrationRequest(std::string komunikat)
+{
+	// string wejsciowy powinien miec taka forme: "nazwa#haslo", poniewaz id zostalo zjedzone przy odczycie.
+	std::string nazwa = Parser::pierwszyWyraz(komunikat, '#');
+	std::string haslo = Parser::pierwszyWyraz(komunikat, '#');
+
+	this->setId(REGISTRATION_REQUEST);
+	this->setNazwaUzytkownika(nazwa);
+	this->setHaslo(haslo);
+}
 RegistrationRequest::RegistrationRequest(std::string nazwa, std::string haslo)
 {
 	this->setId(REGISTRATION_REQUEST);
 	this->setNazwaUzytkownika(nazwa);
 	this->setHaslo(haslo);
 }
-
+RegistrationRequest::RegistrationRequest(const RegistrationRequest &komunikat)
+{
+	this->setId(REGISTRATION_REQUEST);
+	this->setNazwaUzytkownika(komunikat.getNazwaUzytkownika());
+	this->setHaslo(komunikat.getHaslo());
+}
 
 RegistrationRequest::~RegistrationRequest()
 {
