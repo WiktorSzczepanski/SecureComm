@@ -38,7 +38,8 @@ std::string Parser::pierwszyWyraz(std::string &wejsciowy, const char separator)
 	//*/
 
 	std::string wynik = std::string(przedzial.poczatek, przedzial.koniec);
-	wejsciowy.erase(przedzial.poczatek, przedzial.koniec + 1); // tu sie wysypie, jesli napotka niespodziewany koniec pliku z zapisem bazy. Musi byc '#' na koncu. Powyzej mozna by wstawic try-catch.
+	if (przedzial.koniec != wejsciowy.end())	++przedzial.koniec; // @TODO sprawdzic reakcje na nieoczekiwany koniec pliku
+	wejsciowy.erase(przedzial.poczatek, przedzial.koniec); // tu sie sypalo
 
 	return wynik;
 }

@@ -27,4 +27,5 @@ enum rodzajKomunikatu
 };
 
 typedef unsigned int UserId;
-
+class Komunikat;
+typedef std::shared_ptr<Komunikat> SharedKomunikatPtr;

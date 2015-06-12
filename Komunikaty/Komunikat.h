@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "../Serwer/Serwer/Parser.h"
 #include "Deklaracje.h"
 //#include "../Serwer/Serwer/User.h"
 class Komunikat

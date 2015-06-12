@@ -1,5 +1,5 @@
 #pragma once
-#include "C:\Home\GitLocalRepo\SecureComm\Komunikaty\Komunikat.h"
+#include "../Komunikat.h"
 class RegistrationConfirmation :
 	public Komunikat
 {
