@@ -75,12 +75,12 @@ public:
     TestNode(int port0, int port1) : CommunicationNode(port0,port1) {}
 
 protected:
-    void react(Komunikat &komunikat)
+    void react(Komunikat *komunikat)
     {
 	bool success;
         Komunikat *answer;
-        Printer::print("Otrzymałem: " + komunikat.toString());
-        if ( komunikat.getId() != 0 )
+        Printer::print("Otrzymałem: " + komunikat->toString());
+        if ( komunikat->getId() != 0 )
         {
             return;
         }
@@ -98,21 +98,21 @@ protected:
         delete answer;
     }
 
-    std::unique_ptr<Komunikat> createKomunikat(std::string string)
+    Komunikat* createKomunikat(std::string string)
     {
         if (string == Czesc().toString())
         {
-            return std::unique_ptr<Komunikat>(new Czesc());
+            return new Czesc();
         }
         //if ( ch == 'A' )
         if (string == Idz().toString())
         {
-            return std::unique_ptr<Komunikat>(new Idz());
+            return new Idz();
         }
         //if ( ch == 'U' )
         if (string == Uszanowanie().toString())
         {
-            return std::unique_ptr<Komunikat>(new Uszanowanie());
+            return new Uszanowanie();
         }
         else
         {

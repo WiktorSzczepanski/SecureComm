@@ -24,14 +24,14 @@ protected:
      * przejscie skutkuje wywolaniem procedur w potomku zwiazanych z logika klienta/serwera oraz
      * ewentualne wywolanie sendMessage z komunikatem odpowiedzi.
      */
-    virtual void react(Komunikat &komunikat) = 0;
+    virtual void react(Komunikat *komunikat) = 0;
 
     /*
      * Zbudowanie obiektu komunikatu na podstawie otrzymanego przez TCP kompletnego stringa komunikatu;
      * sugestia implementacyjna: fabryka komunikatow klienta lub serwera;
      * uwaga: potrzebna obsluga blednych komunikatow.
      */
-    virtual std::unique_ptr<Komunikat> createKomunikat(std::string) = 0;
+    virtual Komunikat* createKomunikat(std::string) = 0;
 
 
 public:
@@ -77,11 +77,14 @@ private:
      */
     void messageProcessingLoop();
 
+    inline virtual void cleanup(Komunikat *komunikat)
+        { delete komunikat; }
+
 private:
     /* Modul wysylania komunikatow */
-    Sender sender;
+    Sender *sender;
     /* Modul nasluchiwania komunikatow */
-    Listener listener;
+    Listener *listener;
     /* Kolejka blokujaca nadchodzacych komunikatow */
     BQueue<std::string> bQueue;
     /* Aktywnosc petli wewnatrz metody messageProcessingLoop */
