@@ -60,8 +60,13 @@ SharedKomunikatPtr Deserializer::rozpoznajZeStringa(std::string &wejsciowy)
 		break;
 	}
 	case LOGIN_REQUEST:
-
+	{
+		// 1
+		std::shared_ptr<LoginRequest> regPtr;
+		regPtr = std::make_shared<LoginRequest>(wejsciowy);
+		wynik = std::dynamic_pointer_cast<Komunikat>(regPtr);
 		break;
+	}
 	case WIADOMOSC:
 
 		break;

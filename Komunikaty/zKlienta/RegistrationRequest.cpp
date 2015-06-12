@@ -31,7 +31,7 @@ void RegistrationRequest::setHaslo(const std::string &noweHaslo)
 }
 
 //konstruktory
-RegistrationRequest::RegistrationRequest(std::string komunikat)
+RegistrationRequest::RegistrationRequest(std::string &komunikat)
 {
 	// string wejsciowy powinien miec taka forme: "nazwa#haslo", poniewaz id zostalo zjedzone przy odczycie.
 	std::string nazwa = Parser::pierwszyWyraz(komunikat, '#');

@@ -21,6 +21,7 @@ public:
 	void setHaslo(const std::string &noweHaslo);
 
 	//konstruktory
+	LoginRequest(std::string &komunikat);
 	LoginRequest(const UserId nadawca, std::string nazwa, std::string haslo);
 	LoginRequest(const LoginRequest &);
 	~LoginRequest();
